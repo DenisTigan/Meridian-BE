@@ -1,0 +1,15 @@
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\bin\Debug\net9.0\MeridianEmployeeHub.Services.deps.json
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\bin\Debug\net9.0\MeridianEmployeeHub.Services.dll
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\bin\Debug\net9.0\MeridianEmployeeHub.Services.pdb
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\bin\Debug\net9.0\MeridianEmployeeHub.Data.dll
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\bin\Debug\net9.0\MeridianEmployeeHub.Data.pdb
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\MeridianEmployeeHub.Services.csproj.AssemblyReference.cache
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\MeridianEmployeeHub.Services.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\MeridianEmployeeHub.Services.AssemblyInfoInputs.cache
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\MeridianEmployeeHub.Services.AssemblyInfo.cs
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\MeridianEmployeeHub.Services.csproj.CoreCompileInputs.cache
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\Meridian.C50DADA8.Up2Date
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\MeridianEmployeeHub.Services.dll
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\refint\MeridianEmployeeHub.Services.dll
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\MeridianEmployeeHub.Services.pdb
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\ref\MeridianEmployeeHub.Services.dll
