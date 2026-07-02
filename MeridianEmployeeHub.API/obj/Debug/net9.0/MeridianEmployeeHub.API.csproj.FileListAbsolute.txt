@@ -163,3 +163,7 @@ C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.API\obj\Debug\net9.0
 C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.API\obj\Debug\net9.0\MeridianEmployeeHub.API.pdb
 C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.API\obj\Debug\net9.0\MeridianEmployeeHub.API.genruntimeconfig.cache
 C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.API\obj\Debug\net9.0\ref\MeridianEmployeeHub.API.dll
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.API\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.API\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.API\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.API\obj\Debug\net9.0\MeridianEmployeeHub.API.sourcelink.json

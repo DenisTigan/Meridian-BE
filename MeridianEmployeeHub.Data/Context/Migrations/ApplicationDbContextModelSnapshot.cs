@@ -110,6 +110,12 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
                     b.Property<string>("ProfilePictureUrl")
                         .HasColumnType("longtext");
 
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("RefreshTokenExpiresAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 

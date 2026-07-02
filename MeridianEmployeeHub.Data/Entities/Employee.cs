@@ -45,5 +45,9 @@ namespace MeridianEmployeeHub.Data.Entities
 
         // Subordonații acestui angajat (relația inversă pentru ManagerId)
         public ICollection<Employee> Subordinates { get; set; } = new List<Employee>();
+
+        // ── Refresh Token (stocat server-side pentru invalidare la logout) ───
+        public string? RefreshToken { get; set; }
+        public DateTime? RefreshTokenExpiresAt { get; set; }
     }
-}
+}

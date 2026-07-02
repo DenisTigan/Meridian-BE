@@ -27,6 +27,23 @@ namespace MeridianEmployeeHub.Data.Repositories
             return await _context.Employees.FirstOrDefaultAsync(e => e.Id == id);
         }
 
+        // IgnoreQueryFilters: permite autentificarea si pentru conturi inactive,
+        // astfel incat sa putem returna eroarea corecta ("cont inactiv" vs "email negasit")
+        public async Task<Employee?> GetByEmailAsync(string email)
+        {
+            return await _context.Employees
+                .IgnoreQueryFilters()
+                .Include(e => e.Role)
+                .FirstOrDefaultAsync(e => e.Email == email);
+        }
+
+        public async Task<Employee?> GetByRefreshTokenAsync(string refreshToken)
+        {
+            return await _context.Employees
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(e => e.RefreshToken == refreshToken);
+        }
+
         public async Task AddAsync(Employee employee)
         {
             await _context.Employees.AddAsync(employee);

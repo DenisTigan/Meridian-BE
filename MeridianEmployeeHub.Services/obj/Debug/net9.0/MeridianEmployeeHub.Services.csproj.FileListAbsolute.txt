@@ -13,3 +13,4 @@ C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\n
 C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\refint\MeridianEmployeeHub.Services.dll
 C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\MeridianEmployeeHub.Services.pdb
 C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\ref\MeridianEmployeeHub.Services.dll
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Services\obj\Debug\net9.0\MeridianEmployeeHub.Services.sourcelink.json

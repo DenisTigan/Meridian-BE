@@ -10,3 +10,4 @@ C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Data\obj\Debug\net9.
 C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Data\obj\Debug\net9.0\refint\MeridianEmployeeHub.Data.dll
 C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Data\obj\Debug\net9.0\MeridianEmployeeHub.Data.pdb
 C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Data\obj\Debug\net9.0\ref\MeridianEmployeeHub.Data.dll
+C:\Users\Denis\Desktop\Meridian\backend\MeridianEmployeeHub.Data\obj\Debug\net9.0\MeridianEmployeeHub.Data.sourcelink.json

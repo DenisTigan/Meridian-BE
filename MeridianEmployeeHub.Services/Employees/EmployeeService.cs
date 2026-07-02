@@ -1,7 +1,8 @@
-﻿using AutoMapper;
+using AutoMapper;
 using MeridianEmployeeHub.Data.Entities;
 using MeridianEmployeeHub.Data.Repositories.Interfaces;
 using MeridianEmployeeHub.Services.Employees.DTOs;
+using BC = BCrypt.Net.BCrypt;
 
 namespace MeridianEmployeeHub.Services.Employees
 {
@@ -32,11 +33,14 @@ namespace MeridianEmployeeHub.Services.Employees
         {
             var employeeEntity = _mapper.Map<Employee>(request);
 
-            // Generăm un cod de angajat (vom face o logică mai complexă mai târziu)
-            employeeEntity.EmployeeCode = $"EMP-{Guid.NewGuid().ToString().Substring(0, 4).ToUpper()}";
+            // Generam un cod unic de angajat
+            employeeEntity.EmployeeCode = $"EMP-{Guid.NewGuid().ToString()[..4].ToUpper()}";
 
-            // Deocamdată punem parola așa cum vine. BCrypt pentru securitate vom adăuga când facem modulul de Auth!
-            employeeEntity.PasswordHash = request.Password;
+            // Hash BCrypt — parola temporara setata de HR; angajatul o va schimba la primul login
+            employeeEntity.PasswordHash = BC.HashPassword(request.Password);
+
+            // Forteaza schimbarea parolei la primul login (securitate implicita)
+            employeeEntity.IsFirstLogin = true;
 
             await _repository.AddAsync(employeeEntity);
             await _repository.SaveChangesAsync();
