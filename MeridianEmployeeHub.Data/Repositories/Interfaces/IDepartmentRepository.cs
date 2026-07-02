@@ -8,6 +8,7 @@ namespace MeridianEmployeeHub.Data.Repositories.Interfaces
         Task<Department?> GetByIdAsync(int id);
         Task AddAsync(Department department);
         Task UpdateAsync(Department department);
+        Task DeleteAsync(Department department);
         Task SaveChangesAsync();
     }
 }

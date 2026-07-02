@@ -35,5 +35,36 @@ namespace MeridianEmployeeHub.Services.Departments
             await _repository.SaveChangesAsync();
             return _mapper.Map<DepartmentDto>(department);
         }
+
+        public async Task<DepartmentDto> UpdateDepartmentAsync(int id, UpdateDepartmentRequest request)
+        {
+            var department = await _repository.GetByIdAsync(id)
+                ?? throw new KeyNotFoundException($"Department with id {id} not found.");
+
+            // Aplicăm doar câmpurile care au valori (patch-like behavior în PUT)
+            if (request.Name is not null)
+                department.Name = request.Name;
+
+            if (request.Description is not null)
+                department.Description = request.Description;
+
+            if (request.HeadEmployeeId.HasValue)
+                department.HeadEmployeeId = request.HeadEmployeeId.Value;
+
+            await _repository.UpdateAsync(department);
+            await _repository.SaveChangesAsync();
+
+            return _mapper.Map<DepartmentDto>(department);
+        }
+
+        public async Task DeleteDepartmentAsync(int id)
+        {
+            var department = await _repository.GetByIdAsync(id)
+                ?? throw new KeyNotFoundException($"Department with id {id} not found.");
+
+            // Department nu are soft-delete — ștergere fizică controlată de Admin
+            await _repository.DeleteAsync(department);
+            await _repository.SaveChangesAsync();
+        }
     }
 }

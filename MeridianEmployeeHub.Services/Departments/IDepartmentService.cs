@@ -7,5 +7,7 @@ namespace MeridianEmployeeHub.Services.Departments
         Task<IEnumerable<DepartmentDto>> GetAllDepartmentsAsync();
         Task<DepartmentDto?> GetDepartmentByIdAsync(int id);
         Task<DepartmentDto> CreateDepartmentAsync(CreateDepartmentRequest request);
+        Task<DepartmentDto> UpdateDepartmentAsync(int id, UpdateDepartmentRequest request);
+        Task DeleteDepartmentAsync(int id);
     }
 }

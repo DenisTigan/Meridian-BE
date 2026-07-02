@@ -22,6 +22,12 @@ namespace MeridianEmployeeHub.Services.Teams
             return _mapper.Map<IEnumerable<TeamDto>>(teams);
         }
 
+        public async Task<IEnumerable<TeamDto>> GetByDepartmentAsync(int departmentId)
+        {
+            var teams = await _repository.GetByDepartmentAsync(departmentId);
+            return _mapper.Map<IEnumerable<TeamDto>>(teams);
+        }
+
         public async Task<TeamDto?> GetTeamByIdAsync(int id)
         {
             var team = await _repository.GetByIdAsync(id);
@@ -34,6 +40,39 @@ namespace MeridianEmployeeHub.Services.Teams
             await _repository.AddAsync(team);
             await _repository.SaveChangesAsync();
             return _mapper.Map<TeamDto>(team);
+        }
+
+        public async Task<TeamDto> UpdateTeamAsync(int id, UpdateTeamRequest request)
+        {
+            var team = await _repository.GetByIdAsync(id)
+                ?? throw new KeyNotFoundException($"Team with id {id} not found.");
+
+            // Aplicăm doar câmpurile care au valori (patch-like behavior în PUT)
+            if (request.Name is not null)
+                team.Name = request.Name;
+
+            if (request.Description is not null)
+                team.Description = request.Description;
+
+            if (request.DepartmentId.HasValue)
+                team.DepartmentId = request.DepartmentId.Value;
+
+            if (request.TeamLeadId.HasValue)
+                team.TeamLeadId = request.TeamLeadId.Value;
+
+            await _repository.UpdateAsync(team);
+            await _repository.SaveChangesAsync();
+
+            return _mapper.Map<TeamDto>(team);
+        }
+
+        public async Task DeleteTeamAsync(int id)
+        {
+            var team = await _repository.GetByIdAsync(id)
+                ?? throw new KeyNotFoundException($"Team with id {id} not found.");
+
+            await _repository.DeleteAsync(team);
+            await _repository.SaveChangesAsync();
         }
     }
 }

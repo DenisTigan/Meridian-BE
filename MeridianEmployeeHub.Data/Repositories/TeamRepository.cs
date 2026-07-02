@@ -19,6 +19,13 @@ namespace MeridianEmployeeHub.Data.Repositories
             return await _context.Teams.ToListAsync();
         }
 
+        public async Task<IEnumerable<Team>> GetByDepartmentAsync(int departmentId)
+        {
+            return await _context.Teams
+                .Where(t => t.DepartmentId == departmentId)
+                .ToListAsync();
+        }
+
         public async Task<Team?> GetByIdAsync(int id)
         {
             return await _context.Teams.FirstOrDefaultAsync(t => t.Id == id);
@@ -32,6 +39,12 @@ namespace MeridianEmployeeHub.Data.Repositories
         public Task UpdateAsync(Team team)
         {
             _context.Teams.Update(team);
+            return Task.CompletedTask;
+        }
+
+        public Task DeleteAsync(Team team)
+        {
+            _context.Teams.Remove(team);
             return Task.CompletedTask;
         }
 

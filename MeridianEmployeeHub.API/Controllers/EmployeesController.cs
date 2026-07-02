@@ -1,51 +1,140 @@
-﻿using MeridianEmployeeHub.Services.Employees;
+using System.Security.Claims;
+using MeridianEmployeeHub.Services.Employees;
 using MeridianEmployeeHub.Services.Employees.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MeridianEmployeeHub.API.Controllers
 {
-    [ApiController] // Îi spune framework-ului că acesta este un controller de API (activează validări automate)
-    [Route("api/v1/[controller]")] // Rutele vor fi sub forma: /api/v1/employees
+    [ApiController]
+    [Route("api/v1/employees")]
+    [Authorize] // Toate rutele necesită autentificare — excepțiile sunt marcate explicit
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
 
-        // Injectăm serviciul pe care l-am creat anterior
         public EmployeesController(IEmployeeService employeeService)
         {
             _employeeService = employeeService;
         }
 
-        // GET: api/v1/employees
+        // ── GET /api/v1/employees ─────────────────────────────────────────────
+        // Toți utilizatorii autentificați pot accesa lista.
+        // Suportă: ?search= &departmentId= &teamId= &page= &pageSize=
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EmployeeDto>>> GetAllEmployees()
+        public async Task<ActionResult<PagedEmployeeResponse>> GetAllEmployees(
+            [FromQuery] string? search,
+            [FromQuery] int? departmentId,
+            [FromQuery] int? teamId,
+            [FromQuery] int page = 1,
+            [FromQuery] int pageSize = 20)
         {
-            var employees = await _employeeService.GetAllEmployeesAsync();
-            return Ok(employees); // Returnează un status HTTP 200 (OK) cu lista de angajați
+            var result = await _employeeService.GetAllEmployeesAsync(
+                search, departmentId, teamId, page, pageSize);
+            return Ok(result);
         }
 
-        // GET: api/v1/employees/5
-        [HttpGet("{id}")]
+        // ── GET /api/v1/employees/me ──────────────────────────────────────────
+        // Profilul propriu al utilizatorului curent.
+        // IMPORTANT: ruta "me" trebuie declarată ÎNAINTEA "{id}" pentru a nu fi interceptată de aceasta.
+        [HttpGet("me")]
+        public async Task<ActionResult<EmployeeDto>> GetMyProfile()
+        {
+            var currentUserId = GetCurrentEmployeeId();
+            var employee = await _employeeService.GetCurrentUserProfileAsync(currentUserId);
+
+            if (employee == null)
+                return NotFound();
+
+            return Ok(employee);
+        }
+
+        // ── GET /api/v1/employees/{id} ────────────────────────────────────────
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<EmployeeDto>> GetEmployeeById(int id)
         {
             var employee = await _employeeService.GetEmployeeByIdAsync(id);
 
             if (employee == null)
-            {
-                return NotFound(); // Returnează status 404 (Not Found) dacă nu există
-            }
+                return NotFound();
 
             return Ok(employee);
         }
 
-        // POST: api/v1/employees
+        // ── POST /api/v1/employees ────────────────────────────────────────────
+        // Doar HR sau Admin pot crea angajați noi.
         [HttpPost]
-        public async Task<ActionResult<EmployeeDto>> CreateEmployee([FromBody] CreateEmployeeRequest request)
+        [Authorize(Policy = "HROrAdmin")]
+        public async Task<ActionResult<EmployeeDto>> CreateEmployee(
+            [FromBody] CreateEmployeeRequest request)
         {
             var newEmployee = await _employeeService.CreateEmployeeAsync(request);
 
-            // Returnează status 201 (Created) și rutează către metoda care poate aduce noul angajat
+            // 201 Created cu Location header care pointează la GET /{id}
             return CreatedAtAction(nameof(GetEmployeeById), new { id = newEmployee.Id }, newEmployee);
+        }
+
+        // ── PUT /api/v1/employees/{id} ────────────────────────────────────────
+        // Orice angajat autentificat poate încerca; ownership check-ul e în service.
+        // Un angajat obișnuit poate edita doar propriile câmpuri (PhoneNumber, ProfilePictureUrl).
+        // HR/Admin pot edita orice câmp pe orice angajat.
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult<EmployeeDto>> UpdateEmployee(
+            int id, [FromBody] UpdateEmployeeRequest request)
+        {
+            var currentUserId = GetCurrentEmployeeId();
+            var isHROrAdmin = IsHROrAdmin();
+
+            var updated = await _employeeService.UpdateEmployeeAsync(
+                id, request, currentUserId, isHROrAdmin);
+
+            return Ok(updated);
+        }
+
+        // ── DELETE /api/v1/employees/{id} ─────────────────────────────────────
+        // Soft-delete: IsActive = false. Exclusiv Admin.
+        [HttpDelete("{id:int}")]
+        [Authorize(Policy = "AdminOnly")]
+        public async Task<IActionResult> DeactivateEmployee(int id)
+        {
+            await _employeeService.DeactivateEmployeeAsync(id);
+            return NoContent(); // 204 No Content
+        }
+
+        // ── PATCH /api/v1/employees/{id}/work-status ──────────────────────────
+        // Self-only: un angajat poate schimba DOAR propriul WorkStatus.
+        // Ownership check-ul este aplicat în service (aruncă ForbiddenException dacă nu e self).
+        [HttpPatch("{id:int}/work-status")]
+        public async Task<ActionResult<EmployeeDto>> UpdateWorkStatus(
+            int id, [FromBody] UpdateWorkStatusRequest request)
+        {
+            var currentUserId = GetCurrentEmployeeId();
+
+            var updated = await _employeeService.UpdateWorkStatusAsync(
+                id, request.WorkStatus, currentUserId);
+
+            return Ok(updated);
+        }
+
+        // ── Helper methods ────────────────────────────────────────────────────
+
+        private int GetCurrentEmployeeId()
+        {
+            // JWT emis de AuthService conține claim-ul "sub" (NameIdentifier) cu ID-ul angajatului
+            var subClaim = User.FindFirstValue(ClaimTypes.NameIdentifier)
+                        ?? User.FindFirstValue("sub");
+
+            if (!int.TryParse(subClaim, out var employeeId))
+                throw new UnauthorizedAccessException(
+                    "Invalid token: missing or invalid subject claim.");
+
+            return employeeId;
+        }
+
+        private bool IsHROrAdmin()
+        {
+            // Citim rolul din claim-ul JWT — NU din body-ul request-ului
+            return User.IsInRole("HR") || User.IsInRole("Admin");
         }
     }
 }

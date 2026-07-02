@@ -21,6 +21,45 @@ namespace MeridianEmployeeHub.Data.Repositories
             return await _context.Employees.ToListAsync();
         }
 
+        // Interogare filtrată + paginată — folosită de GET /api/v1/employees
+        public async Task<(IEnumerable<Employee> Items, int TotalCount)> GetFilteredAsync(
+            string? search,
+            int? departmentId,
+            int? teamId,
+            int page,
+            int pageSize)
+        {
+            var query = _context.Employees.AsQueryable();
+
+            // Căutare text în firstName, lastName, email, employeeCode (case-insensitive pe MySQL)
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                var term = search.Trim().ToLower();
+                query = query.Where(e =>
+                    e.FirstName.ToLower().Contains(term) ||
+                    e.LastName.ToLower().Contains(term)  ||
+                    e.Email.ToLower().Contains(term)     ||
+                    e.EmployeeCode.ToLower().Contains(term));
+            }
+
+            if (departmentId.HasValue)
+                query = query.Where(e => e.DepartmentId == departmentId.Value);
+
+            if (teamId.HasValue)
+                query = query.Where(e => e.TeamId == teamId.Value);
+
+            var totalCount = await query.CountAsync();
+
+            var items = await query
+                .OrderBy(e => e.LastName)
+                .ThenBy(e => e.FirstName)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return (items, totalCount);
+        }
+
         public async Task<Employee?> GetByIdAsync(int id)
         {
             // Global query filter exclude automat angajații inactivi
@@ -60,4 +99,4 @@ namespace MeridianEmployeeHub.Data.Repositories
             await _context.SaveChangesAsync();
         }
     }
-}
+}
