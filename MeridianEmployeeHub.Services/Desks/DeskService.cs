@@ -27,6 +27,13 @@ namespace MeridianEmployeeHub.Services.Desks
             return desks.Select(ToDto);
         }
 
+        // ── GET toate deskurile active din toate office-urile ─────────────────
+        public async Task<IEnumerable<DeskDto>> GetAllActiveDesksAsync()
+        {
+            var desks = await _deskRepository.GetAllActiveAsync();
+            return desks.Select(ToDto);
+        }
+
         public async Task<DeskDto?> GetDeskByIdAsync(int id)
         {
             var desk = await _deskRepository.GetByIdAsync(id);

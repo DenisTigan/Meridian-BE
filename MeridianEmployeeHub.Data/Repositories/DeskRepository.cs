@@ -25,6 +25,18 @@ namespace MeridianEmployeeHub.Data.Repositories
                 .ToListAsync();
         }
 
+        // Toate desk-urile active din toate office-urile (pentru disponibilitate globală)
+        public async Task<IEnumerable<Desk>> GetAllActiveAsync()
+        {
+            return await _context.Desks
+                .Include(d => d.Office)
+                .Where(d => d.IsActive)
+                .OrderBy(d => d.OfficeId)
+                .ThenBy(d => d.Floor)
+                .ThenBy(d => d.DeskCode)
+                .ToListAsync();
+        }
+
         public async Task<Desk?> GetByIdAsync(int id)
         {
             return await _context.Desks.FirstOrDefaultAsync(d => d.Id == id);

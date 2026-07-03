@@ -33,6 +33,7 @@ namespace MeridianEmployeeHub.Data.Context
         // ── Desk Booking ───────────────────────────────────────────────
         public DbSet<Office> Offices { get; set; }
         public DbSet<Desk> Desks { get; set; }
+        public DbSet<DeskBooking> DeskBookings { get; set; }
 
         // ── Auto-set CreatedAt / UpdatedAt la fiecare salvare ────────────────
         // CreatedBy / UpdatedBy vor fi populate în sesiunea de Auth (IHttpContextAccessor)
@@ -64,6 +65,15 @@ namespace MeridianEmployeeHub.Data.Context
 
             // Auto-set CreatedAt pentru Office (nu moștenește BaseEntity)
             foreach (var entry in ChangeTracker.Entries<Office>())
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = now;
+                }
+            }
+
+            // Auto-set CreatedAt pentru DeskBooking (nu moștenește BaseEntity)
+            foreach (var entry in ChangeTracker.Entries<DeskBooking>())
             {
                 if (entry.State == EntityState.Added)
                 {
@@ -318,6 +328,43 @@ namespace MeridianEmployeeHub.Data.Context
                       .WithMany(o => o.Desks)
                       .HasForeignKey(d => d.OfficeId)
                       .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // ── DeskBooking ────────────────────────────────────────────────────────
+            modelBuilder.Entity<DeskBooking>(entity =>
+            {
+                entity.HasKey(b => b.Id);
+
+                // Enum stocat ca int (Confirmed = 0, Cancelled = 1)
+                entity.Property(b => b.Status)
+                      .HasConversion<int>();
+
+                // ConfirmedDeskId: setter privat accesibil EF Core prin reflection
+                entity.Property(b => b.ConfirmedDeskId)
+                      .IsRequired(false);
+
+                // FK NOT NULL → Desks, Restrict (istoricul rezervărilor trebuie păstrat)
+                entity.HasOne(b => b.Desk)
+                      .WithMany()
+                      .HasForeignKey(b => b.DeskId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                // FK NOT NULL → Employees, Restrict
+                entity.HasOne(b => b.Employee)
+                      .WithMany()
+                      .HasForeignKey(b => b.EmployeeId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                // ── Strat 2: index UNIQUE pe (ConfirmedDeskId, BookingDate) ─────────────
+                // MySQL 8 nu suportă indexuri filtrate. Workaround: ConfirmedDeskId
+                // este NULL când Status = Cancelled; MySQL permite multiple NULL-uri
+                // într-un index UNIQUE, deci rezervările anulate nu participă.
+                // Rezervările Confirmed au ConfirmedDeskId = DeskId ⇒ coliziunea
+                // pe (desk, dată) e prinsă de baza de date dacă Strat 1 e depășit
+                // de o cursă de concurență.
+                entity.HasIndex(b => new { b.ConfirmedDeskId, b.BookingDate })
+                      .IsUnique()
+                      .HasDatabaseName("IX_DeskBookings_ConfirmedDeskId_BookingDate");
             });
         }
     }
