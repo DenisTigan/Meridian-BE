@@ -3,11 +3,14 @@ using MeridianEmployeeHub.API.Middleware;
 using MeridianEmployeeHub.Data.Context;
 using MeridianEmployeeHub.Data.Repositories;
 using MeridianEmployeeHub.Data.Repositories.Interfaces;
+using MeridianEmployeeHub.Services.Announcements;
 using MeridianEmployeeHub.Services.Auth;
+using MeridianEmployeeHub.Services.Buddy;
 using MeridianEmployeeHub.Services.Departments;
 using MeridianEmployeeHub.Services.Employees;
 using MeridianEmployeeHub.Services.Onboarding;
 using MeridianEmployeeHub.Services.Profiles;
+using MeridianEmployeeHub.Services.QuickLinks;
 using MeridianEmployeeHub.Services.Roles;
 using MeridianEmployeeHub.Services.Teams;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -26,6 +29,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddAutoMapper(cfg =>
 {
     cfg.AddProfile<EmployeeMappingProfile>();
+    cfg.AddProfile<BuddyMappingProfile>();
+    cfg.AddProfile<AnnouncementMappingProfile>();
+    cfg.AddProfile<QuickLinkMappingProfile>();
 });
 
 // ── 3. Repositories ──────────────────────────────────────────────────────────
@@ -34,6 +40,9 @@ builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IOnboardingRepository, OnboardingRepository>();
+builder.Services.AddScoped<IBuddyRepository, BuddyRepository>();
+builder.Services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
+builder.Services.AddScoped<IQuickLinkRepository, QuickLinkRepository>();
 
 // ── 4. Services ──────────────────────────────────────────────────────────────
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
@@ -42,6 +51,9 @@ builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IOnboardingService, OnboardingService>();
+builder.Services.AddScoped<IBuddyService, BuddyService>();
+builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
+builder.Services.AddScoped<IQuickLinkService, QuickLinkService>();
 
 // ── 5. JWT Authentication ────────────────────────────────────────────────────
 var jwtSection = builder.Configuration.GetSection("Jwt");

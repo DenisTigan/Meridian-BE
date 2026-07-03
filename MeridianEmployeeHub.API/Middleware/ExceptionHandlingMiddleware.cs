@@ -45,6 +45,9 @@ namespace MeridianEmployeeHub.API.Middleware
                 KeyNotFoundException notFoundEx =>
                     (StatusCodes.Status404NotFound, "Not Found", notFoundEx.Message),
 
+                ConflictException conflictEx =>
+                    (StatusCodes.Status409Conflict, "Conflict", conflictEx.Message),
+
                 ArgumentException argEx =>
                     (StatusCodes.Status400BadRequest, "Bad Request", argEx.Message),
 

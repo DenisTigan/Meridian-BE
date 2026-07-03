@@ -22,6 +22,86 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Announcement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsPublished")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("PublishedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.ToTable("Announcements");
+                });
+
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.BuddyAssignment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AssignedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("BuddyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NewEmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BuddyId");
+
+                    b.HasIndex("NewEmployeeId");
+
+                    b.ToTable("BuddyAssignments");
+                });
+
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -241,6 +321,45 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
                     b.ToTable("OnboardingTasks");
                 });
 
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.QuickLink", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("varchar(80)");
+
+                    b.Property<string>("IconName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<byte>("OrderIndex")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QuickLinks");
+                });
+
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -288,6 +407,36 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
                     b.HasIndex("TeamLeadId");
 
                     b.ToTable("Teams");
+                });
+
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Announcement", b =>
+                {
+                    b.HasOne("MeridianEmployeeHub.Data.Entities.Employee", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+                });
+
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.BuddyAssignment", b =>
+                {
+                    b.HasOne("MeridianEmployeeHub.Data.Entities.Employee", "Buddy")
+                        .WithMany()
+                        .HasForeignKey("BuddyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MeridianEmployeeHub.Data.Entities.Employee", "NewEmployee")
+                        .WithMany()
+                        .HasForeignKey("NewEmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Buddy");
+
+                    b.Navigation("NewEmployee");
                 });
 
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Department", b =>

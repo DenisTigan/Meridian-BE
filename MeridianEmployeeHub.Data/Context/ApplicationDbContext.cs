@@ -21,6 +21,15 @@ namespace MeridianEmployeeHub.Data.Context
         public DbSet<OnboardingChecklist> OnboardingChecklists { get; set; }
         public DbSet<OnboardingTask> OnboardingTasks { get; set; }
 
+        // ── Buddy System ──────────────────────────────────────────────
+        public DbSet<BuddyAssignment> BuddyAssignments { get; set; }
+
+        // ── Announcements ─────────────────────────────────────────────
+        public DbSet<Announcement> Announcements { get; set; }
+
+        // ── Quick Links ───────────────────────────────────────────────
+        public DbSet<QuickLink> QuickLinks { get; set; }
+
         // ── Auto-set CreatedAt / UpdatedAt la fiecare salvare ────────────────
         // CreatedBy / UpdatedBy vor fi populate în sesiunea de Auth (IHttpContextAccessor)
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -186,6 +195,75 @@ namespace MeridianEmployeeHub.Data.Context
                       .WithMany(c => c.Tasks)
                       .HasForeignKey(t => t.ChecklistId)
                       .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // ── BuddyAssignment — două FK-uri separate către Employees ──────────────
+            // Ambele sunt configurate explicit cu Restrict pentru a evita:
+            //   1. Erori de "multiple cascade paths" pe MySQL/SQL Server
+            //   2. EF Core genîrerând FK-uri ambiguu denumite prin convenție
+            modelBuilder.Entity<BuddyAssignment>(entity =>
+            {
+                entity.HasKey(a => a.Id);
+
+                // Relația 1: BuddyAssignment → Employee (ca angajat nou)
+                entity.HasOne(a => a.NewEmployee)
+                      .WithMany()
+                      .HasForeignKey(a => a.NewEmployeeId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                // Relația 2: BuddyAssignment → Employee (ca buddy)
+                entity.HasOne(a => a.Buddy)
+                      .WithMany()
+                      .HasForeignKey(a => a.BuddyId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // ── Announcement ─────────────────────────────────────────────────────
+            modelBuilder.Entity<Announcement>(entity =>
+            {
+                entity.HasKey(a => a.Id);
+
+                entity.Property(a => a.Title)
+                      .IsRequired()
+                      .HasMaxLength(255);
+
+                // Stochează conținut lung ca TEXT (MySQL)
+                entity.Property(a => a.Content)
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+                // Enum stocat ca int (implicit EF Core)
+                entity.Property(a => a.Category)
+                      .HasConversion<int>();
+
+                // FK NOT NULL → Employees (Author), fără cascade delete
+                // (restricție pentru a evita ștergerea accidentală a anunțurilor)
+                entity.HasOne(a => a.Author)
+                      .WithMany()
+                      .HasForeignKey(a => a.AuthorId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // ── QuickLink ─────────────────────────────────────────────────────────
+            modelBuilder.Entity<QuickLink>(entity =>
+            {
+                entity.HasKey(q => q.Id);
+
+                entity.Property(q => q.Name)
+                      .IsRequired()
+                      .HasMaxLength(100);
+
+                entity.Property(q => q.Url)
+                      .IsRequired()
+                      .HasMaxLength(500);
+
+                entity.Property(q => q.IconName)
+                      .IsRequired()
+                      .HasMaxLength(100);
+
+                entity.Property(q => q.Category)
+                      .IsRequired()
+                      .HasMaxLength(80);
             });
         }
     }
