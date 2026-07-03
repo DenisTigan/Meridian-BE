@@ -17,6 +17,10 @@ namespace MeridianEmployeeHub.Data.Context
         public DbSet<Team> Teams { get; set; }
         public DbSet<Role> Roles { get; set; }
 
+        // ── Onboarding ───────────────────────────────────────────────────────
+        public DbSet<OnboardingChecklist> OnboardingChecklists { get; set; }
+        public DbSet<OnboardingTask> OnboardingTasks { get; set; }
+
         // ── Auto-set CreatedAt / UpdatedAt la fiecare salvare ────────────────
         // CreatedBy / UpdatedBy vor fi populate în sesiunea de Auth (IHttpContextAccessor)
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -143,6 +147,45 @@ namespace MeridianEmployeeHub.Data.Context
                       .WithMany()
                       .HasForeignKey(e => e.UpdatedBy)
                       .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            // ── OnboardingChecklist — relație 1:1 cu Employee ─────────────────
+            modelBuilder.Entity<OnboardingChecklist>(entity =>
+            {
+                entity.HasKey(c => c.Id);
+
+                // Index unic pe EmployeeId — forțează relația 1:1
+                entity.HasIndex(c => c.EmployeeId)
+                      .IsUnique();
+
+                // FK NOT NULL → Employee, cascade delete
+                // (dacă angajatul e șters fizic, checklist-ul dispare și el)
+                entity.HasOne(c => c.Employee)
+                      .WithMany()
+                      .HasForeignKey(c => c.EmployeeId)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.Property(c => c.OverallProgress)
+                      .HasDefaultValue((byte)0);
+            });
+
+            // ── OnboardingTask — relație many:1 cu OnboardingChecklist ─────────
+            modelBuilder.Entity<OnboardingTask>(entity =>
+            {
+                entity.HasKey(t => t.Id);
+
+                entity.Property(t => t.Title)
+                      .IsRequired()
+                      .HasMaxLength(255);
+
+                entity.Property(t => t.AutoTriggerType)
+                      .HasMaxLength(100);
+
+                // FK NOT NULL → OnboardingChecklists, cascade delete
+                entity.HasOne(t => t.Checklist)
+                      .WithMany(c => c.Tasks)
+                      .HasForeignKey(t => t.ChecklistId)
+                      .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

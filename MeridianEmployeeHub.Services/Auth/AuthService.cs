@@ -6,6 +6,7 @@ using MeridianEmployeeHub.Data.Entities;
 using MeridianEmployeeHub.Data.Repositories.Interfaces;
 using MeridianEmployeeHub.Services.Auth.DTOs;
 using MeridianEmployeeHub.Services.Auth.Validators;
+using MeridianEmployeeHub.Services.Onboarding;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using BC = BCrypt.Net.BCrypt;
@@ -16,6 +17,7 @@ namespace MeridianEmployeeHub.Services.Auth
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IConfiguration _configuration;
+        private readonly IOnboardingService _onboardingService;
 
         // Valori citite din appsettings.json sectiunea "Jwt"
         private readonly string _key;
@@ -25,10 +27,14 @@ namespace MeridianEmployeeHub.Services.Auth
         private readonly int _shortTokenExpiryMinutes;
         private readonly int _refreshTokenExpiryDays;
 
-        public AuthService(IEmployeeRepository employeeRepository, IConfiguration configuration)
+        public AuthService(
+            IEmployeeRepository employeeRepository,
+            IConfiguration configuration,
+            IOnboardingService onboardingService)
         {
             _employeeRepository = employeeRepository;
             _configuration = configuration;
+            _onboardingService = onboardingService;
 
             var jwt = configuration.GetSection("Jwt");
             _key = jwt["Key"] ?? throw new InvalidOperationException("JWT Key not configured.");
@@ -97,6 +103,10 @@ namespace MeridianEmployeeHub.Services.Auth
 
             await _employeeRepository.UpdateAsync(employee);
             await _employeeRepository.SaveChangesAsync();
+
+            // Auto-trigger pentru onboarding: marchează task-ul 'password_changed' dacă există.
+            // Dacă angajatul nu are încă un checklist, no-op (checklist-ul se creează la prima vizitare a /onboarding/checklist).
+            await _onboardingService.TriggerAutoCompleteAsync(employeeId, "password_changed");
 
             // Emite token normal + refresh token
             return await IssueFullTokenPairAsync(employee);

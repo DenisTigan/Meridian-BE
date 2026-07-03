@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using MeridianEmployeeHub.API.Middleware;
 using MeridianEmployeeHub.Data.Context;
 using MeridianEmployeeHub.Data.Repositories;
@@ -6,6 +6,7 @@ using MeridianEmployeeHub.Data.Repositories.Interfaces;
 using MeridianEmployeeHub.Services.Auth;
 using MeridianEmployeeHub.Services.Departments;
 using MeridianEmployeeHub.Services.Employees;
+using MeridianEmployeeHub.Services.Onboarding;
 using MeridianEmployeeHub.Services.Profiles;
 using MeridianEmployeeHub.Services.Roles;
 using MeridianEmployeeHub.Services.Teams;
@@ -32,6 +33,7 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+builder.Services.AddScoped<IOnboardingRepository, OnboardingRepository>();
 
 // ── 4. Services ──────────────────────────────────────────────────────────────
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
@@ -39,6 +41,7 @@ builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IOnboardingService, OnboardingService>();
 
 // ── 5. JWT Authentication ────────────────────────────────────────────────────
 var jwtSection = builder.Configuration.GetSection("Jwt");
