@@ -35,6 +35,9 @@ namespace MeridianEmployeeHub.Data.Context
         public DbSet<Desk> Desks { get; set; }
         public DbSet<DeskBooking> DeskBookings { get; set; }
 
+        // ── Company Calendar ───────────────────────────────────────────────
+        public DbSet<CalendarEvent> CalendarEvents { get; set; }
+
         // ── Auto-set CreatedAt / UpdatedAt la fiecare salvare ────────────────
         // CreatedBy / UpdatedBy vor fi populate în sesiunea de Auth (IHttpContextAccessor)
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -74,6 +77,15 @@ namespace MeridianEmployeeHub.Data.Context
 
             // Auto-set CreatedAt pentru DeskBooking (nu moștenește BaseEntity)
             foreach (var entry in ChangeTracker.Entries<DeskBooking>())
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = now;
+                }
+            }
+
+            // Auto-set CreatedAt pentru CalendarEvent (nu moștenește BaseEntity)
+            foreach (var entry in ChangeTracker.Entries<CalendarEvent>())
             {
                 if (entry.State == EntityState.Added)
                 {
@@ -365,6 +377,32 @@ namespace MeridianEmployeeHub.Data.Context
                 entity.HasIndex(b => new { b.ConfirmedDeskId, b.BookingDate })
                       .IsUnique()
                       .HasDatabaseName("IX_DeskBookings_ConfirmedDeskId_BookingDate");
+            });
+
+            // ── CalendarEvent ───────────────────────────────────────────────────────────
+            modelBuilder.Entity<CalendarEvent>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Title)
+                      .IsRequired()
+                      .HasMaxLength(255);
+
+                entity.Property(e => e.Location)
+                      .HasMaxLength(300);
+
+                entity.Property(e => e.MeetingUrl)
+                      .HasMaxLength(500);
+
+                entity.Property(e => e.Category)
+                      .HasConversion<int>();
+
+                // FK NOT NULL → Employees (creatorul), Restrict
+                // Angajatul inactiv nu trebuie să blocheze vizibilitatea evenimentelor istorice
+                entity.HasOne(e => e.Creator)
+                      .WithMany()
+                      .HasForeignKey(e => e.CreatedBy)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }
