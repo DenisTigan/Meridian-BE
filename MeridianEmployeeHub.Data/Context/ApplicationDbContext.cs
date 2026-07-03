@@ -30,6 +30,10 @@ namespace MeridianEmployeeHub.Data.Context
         // ── Quick Links ───────────────────────────────────────────────
         public DbSet<QuickLink> QuickLinks { get; set; }
 
+        // ── Desk Booking ───────────────────────────────────────────────
+        public DbSet<Office> Offices { get; set; }
+        public DbSet<Desk> Desks { get; set; }
+
         // ── Auto-set CreatedAt / UpdatedAt la fiecare salvare ────────────────
         // CreatedBy / UpdatedBy vor fi populate în sesiunea de Auth (IHttpContextAccessor)
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -51,6 +55,15 @@ namespace MeridianEmployeeHub.Data.Context
 
             // Auto-set CreatedAt pentru Department (nu moștenește BaseEntity)
             foreach (var entry in ChangeTracker.Entries<Department>())
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = now;
+                }
+            }
+
+            // Auto-set CreatedAt pentru Office (nu moștenește BaseEntity)
+            foreach (var entry in ChangeTracker.Entries<Office>())
             {
                 if (entry.State == EntityState.Added)
                 {
@@ -264,6 +277,47 @@ namespace MeridianEmployeeHub.Data.Context
                 entity.Property(q => q.Category)
                       .IsRequired()
                       .HasMaxLength(80);
+            });
+
+            // ── Office ───────────────────────────────────────────────────────────
+            modelBuilder.Entity<Office>(entity =>
+            {
+                entity.HasKey(o => o.Id);
+
+                entity.Property(o => o.Name)
+                      .IsRequired()
+                      .HasMaxLength(150);
+
+                entity.Property(o => o.Address)
+                      .IsRequired()
+                      .HasMaxLength(300);
+            });
+
+            // ── Desk ──────────────────────────────────────────────────────────────
+            modelBuilder.Entity<Desk>(entity =>
+            {
+                entity.HasKey(d => d.Id);
+
+                entity.Property(d => d.DeskCode)
+                      .IsRequired()
+                      .HasMaxLength(20);
+
+                entity.Property(d => d.Zone)
+                      .IsRequired()
+                      .HasMaxLength(50);
+
+                // Coordonate hartă interactivă (Milestone 5) — precision(6,2)
+                entity.Property(d => d.PositionX)
+                      .HasPrecision(6, 2);
+
+                entity.Property(d => d.PositionY)
+                      .HasPrecision(6, 2);
+
+                // FK NOT NULL → Offices, Restrict (desk-urile nu dispar dacă office-ul ar fi șters)
+                entity.HasOne(d => d.Office)
+                      .WithMany(o => o.Desks)
+                      .HasForeignKey(d => d.OfficeId)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }

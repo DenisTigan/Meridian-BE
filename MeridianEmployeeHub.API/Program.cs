@@ -7,7 +7,9 @@ using MeridianEmployeeHub.Services.Announcements;
 using MeridianEmployeeHub.Services.Auth;
 using MeridianEmployeeHub.Services.Buddy;
 using MeridianEmployeeHub.Services.Departments;
+using MeridianEmployeeHub.Services.Desks;
 using MeridianEmployeeHub.Services.Employees;
+using MeridianEmployeeHub.Services.Offices;
 using MeridianEmployeeHub.Services.Onboarding;
 using MeridianEmployeeHub.Services.Profiles;
 using MeridianEmployeeHub.Services.QuickLinks;
@@ -43,6 +45,8 @@ builder.Services.AddScoped<IOnboardingRepository, OnboardingRepository>();
 builder.Services.AddScoped<IBuddyRepository, BuddyRepository>();
 builder.Services.AddScoped<IAnnouncementRepository, AnnouncementRepository>();
 builder.Services.AddScoped<IQuickLinkRepository, QuickLinkRepository>();
+builder.Services.AddScoped<IOfficeRepository, OfficeRepository>();
+builder.Services.AddScoped<IDeskRepository, DeskRepository>();
 
 // ── 4. Services ──────────────────────────────────────────────────────────────
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
@@ -54,6 +58,8 @@ builder.Services.AddScoped<IOnboardingService, OnboardingService>();
 builder.Services.AddScoped<IBuddyService, BuddyService>();
 builder.Services.AddScoped<IAnnouncementService, AnnouncementService>();
 builder.Services.AddScoped<IQuickLinkService, QuickLinkService>();
+builder.Services.AddScoped<IOfficeService, OfficeService>();
+builder.Services.AddScoped<IDeskService, DeskService>();
 
 // ── 5. JWT Authentication ────────────────────────────────────────────────────
 var jwtSection = builder.Configuration.GetSection("Jwt");

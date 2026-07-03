@@ -131,6 +131,48 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
                     b.ToTable("Departments");
                 });
 
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Desk", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("DeskCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<byte>("Floor")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("OfficeId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PositionX")
+                        .HasPrecision(6, 2)
+                        .HasColumnType("decimal(6,2)");
+
+                    b.Property<decimal>("PositionY")
+                        .HasPrecision(6, 2)
+                        .HasColumnType("decimal(6,2)");
+
+                    b.Property<string>("Zone")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OfficeId");
+
+                    b.ToTable("Desks");
+                });
+
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -229,6 +271,35 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
                     b.HasIndex("UpdatedBy");
 
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Office", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("varchar(300)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("FloorCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("varchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Offices");
                 });
 
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.OnboardingChecklist", b =>
@@ -449,6 +520,17 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
                     b.Navigation("HeadEmployee");
                 });
 
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Desk", b =>
+                {
+                    b.HasOne("MeridianEmployeeHub.Data.Entities.Office", "Office")
+                        .WithMany("Desks")
+                        .HasForeignKey("OfficeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Office");
+                });
+
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Employee", b =>
                 {
                     b.HasOne("MeridianEmployeeHub.Data.Entities.Employee", null)
@@ -542,6 +624,11 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Employee", b =>
                 {
                     b.Navigation("Subordinates");
+                });
+
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Office", b =>
+                {
+                    b.Navigation("Desks");
                 });
 
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.OnboardingChecklist", b =>
