@@ -17,6 +17,7 @@ using MeridianEmployeeHub.Services.Notifications;
 using MeridianEmployeeHub.Services.Offices;
 using MeridianEmployeeHub.Services.Onboarding;
 using MeridianEmployeeHub.Services.Profiles;
+using MeridianEmployeeHub.Services.Training;
 using MeridianEmployeeHub.Services.QuickLinks;
 using MeridianEmployeeHub.Services.Roles;
 using MeridianEmployeeHub.Services.Teams;
@@ -58,6 +59,8 @@ builder.Services.AddScoped<IHRTicketRepository, HRTicketRepository>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
 builder.Services.AddScoped<ILeaveBalanceRepository, LeaveBalanceRepository>();
+builder.Services.AddScoped<ITrainingCourseRepository, TrainingCourseRepository>();
+builder.Services.AddScoped<ICourseEnrollmentRepository, CourseEnrollmentRepository>();
 
 // ── 4. Services ──────────────────────────────────────────────────────────────
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
@@ -78,6 +81,8 @@ builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IHRTicketService, HRTicketService>();
 builder.Services.AddScoped<ILeaveRequestService, LeaveRequestService>();
 builder.Services.AddScoped<ILeaveBalanceService, LeaveBalanceService>();
+builder.Services.AddScoped<ITrainingCourseService, TrainingCourseService>();
+builder.Services.AddScoped<ICourseEnrollmentService, CourseEnrollmentService>();
 
 // ── 5. JWT Authentication ────────────────────────────────────────────────────
 var jwtSection = builder.Configuration.GetSection("Jwt");

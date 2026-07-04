@@ -151,6 +151,50 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
                     b.ToTable("CalendarEvents");
                 });
 
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.CourseEnrollment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CertificateUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EnrolledAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("LastAccessedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<byte>("ProgressPercent")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("CourseId", "EmployeeId")
+                        .IsUnique()
+                        .HasDatabaseName("IX_CourseEnrollments_CourseId_EmployeeId");
+
+                    b.ToTable("CourseEnrollments");
+                });
+
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Department", b =>
                 {
                     b.Property<int>("Id")
@@ -759,6 +803,91 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
                     b.ToTable("Teams");
                 });
 
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.TrainingCourse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("EstimatedMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsMandatoryForNewHires")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("ThumbnailUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.ToTable("TrainingCourses");
+                });
+
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.TrainingModule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("DurationMinutes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModuleType")
+                        .HasColumnType("int");
+
+                    b.Property<byte>("OrderIndex")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("varchar(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("TrainingModules");
+                });
+
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Announcement", b =>
                 {
                     b.HasOne("MeridianEmployeeHub.Data.Entities.Employee", "Author")
@@ -798,6 +927,25 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
                         .IsRequired();
 
                     b.Navigation("Creator");
+                });
+
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.CourseEnrollment", b =>
+                {
+                    b.HasOne("MeridianEmployeeHub.Data.Entities.TrainingCourse", "Course")
+                        .WithMany("Enrollments")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MeridianEmployeeHub.Data.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Department", b =>
@@ -981,6 +1129,28 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
                     b.Navigation("TeamLead");
                 });
 
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.TrainingCourse", b =>
+                {
+                    b.HasOne("MeridianEmployeeHub.Data.Entities.Employee", "CreatedBy")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CreatedBy");
+                });
+
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.TrainingModule", b =>
+                {
+                    b.HasOne("MeridianEmployeeHub.Data.Entities.TrainingCourse", "Course")
+                        .WithMany("Modules")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Department", b =>
                 {
                     b.Navigation("Employees");
@@ -1011,6 +1181,13 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Team", b =>
                 {
                     b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.TrainingCourse", b =>
+                {
+                    b.Navigation("Enrollments");
+
+                    b.Navigation("Modules");
                 });
 #pragma warning restore 612, 618
         }

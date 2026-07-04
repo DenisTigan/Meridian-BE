@@ -48,6 +48,11 @@ namespace MeridianEmployeeHub.Data.Context
         // ── Notifications ──────────────────────────────────────────────────────
         public DbSet<Notification> Notifications { get; set; }
 
+        // ── Training Center ────────────────────────────────────────────────────
+        public DbSet<TrainingCourse> TrainingCourses { get; set; }
+        public DbSet<TrainingModule> TrainingModules { get; set; }
+        public DbSet<CourseEnrollment> CourseEnrollments { get; set; }
+
         // ── Auto-set CreatedAt / UpdatedAt la fiecare salvare ────────────────
         // CreatedBy / UpdatedBy vor fi populate în sesiunea de Auth (IHttpContextAccessor)
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -137,6 +142,20 @@ namespace MeridianEmployeeHub.Data.Context
                 if (entry.State == EntityState.Added)
                 {
                     entry.Entity.CreatedAt = now;
+                }
+            }
+
+            // Auto-set CreatedAt/UpdatedAt pentru TrainingCourse
+            foreach (var entry in ChangeTracker.Entries<TrainingCourse>())
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = now;
+                    entry.Entity.UpdatedAt = now;
+                }
+                else if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.UpdatedAt = now;
                 }
             }
 
@@ -578,6 +597,73 @@ namespace MeridianEmployeeHub.Data.Context
                       .WithMany()
                       .HasForeignKey(n => n.EmployeeId)
                       .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // ── TrainingCourse ───────────────────────────────────────────────────────
+            modelBuilder.Entity<TrainingCourse>(entity =>
+            {
+                entity.HasKey(tc => tc.Id);
+
+                entity.Property(tc => tc.Title)
+                      .HasMaxLength(200)
+                      .IsRequired();
+
+                entity.Property(tc => tc.Category)
+                      .HasConversion<int>();
+
+                entity.Property(tc => tc.ThumbnailUrl)
+                      .HasMaxLength(500);
+
+                // FK NOT NULL → Employees, Restrict
+                entity.HasOne(tc => tc.CreatedBy)
+                      .WithMany()
+                      .HasForeignKey(tc => tc.CreatedById)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // ── TrainingModule ───────────────────────────────────────────────────────
+            modelBuilder.Entity<TrainingModule>(entity =>
+            {
+                entity.HasKey(tm => tm.Id);
+
+                entity.Property(tm => tm.Title)
+                      .HasMaxLength(200)
+                      .IsRequired();
+
+                entity.Property(tm => tm.ModuleType)
+                      .HasConversion<int>();
+
+                // FK NOT NULL → TrainingCourse, Cascade
+                entity.HasOne(tm => tm.Course)
+                      .WithMany(tc => tc.Modules)
+                      .HasForeignKey(tm => tm.CourseId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            // ── CourseEnrollment ─────────────────────────────────────────────────────
+            modelBuilder.Entity<CourseEnrollment>(entity =>
+            {
+                entity.HasKey(ce => ce.Id);
+
+                entity.Property(ce => ce.CertificateUrl)
+                      .HasMaxLength(500);
+
+                // FK NOT NULL → TrainingCourse, Restrict
+                entity.HasOne(ce => ce.Course)
+                      .WithMany(tc => tc.Enrollments)
+                      .HasForeignKey(ce => ce.CourseId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                // FK NOT NULL → Employees, Restrict
+                entity.HasOne(ce => ce.Employee)
+                      .WithMany()
+                      .HasForeignKey(ce => ce.EmployeeId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                // Constrângere UNIQUE(CourseId, EmployeeId)
+                entity.HasIndex(ce => new { ce.CourseId, ce.EmployeeId })
+                      .IsUnique()
+                      .HasDatabaseName("IX_CourseEnrollments_CourseId_EmployeeId");
             });
         }
     }

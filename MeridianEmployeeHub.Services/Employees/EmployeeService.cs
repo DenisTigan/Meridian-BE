@@ -12,15 +12,21 @@ namespace MeridianEmployeeHub.Services.Employees
     {
         private readonly IEmployeeRepository _repository;
         private readonly ILeaveBalanceRepository _leaveBalanceRepository;
+        private readonly ITrainingCourseRepository _trainingCourseRepository;
+        private readonly ICourseEnrollmentRepository _courseEnrollmentRepository;
         private readonly IMapper _mapper;
 
         public EmployeeService(
             IEmployeeRepository repository,
             ILeaveBalanceRepository leaveBalanceRepository,
+            ITrainingCourseRepository trainingCourseRepository,
+            ICourseEnrollmentRepository courseEnrollmentRepository,
             IMapper mapper)
         {
             _repository = repository;
             _leaveBalanceRepository = leaveBalanceRepository;
+            _trainingCourseRepository = trainingCourseRepository;
+            _courseEnrollmentRepository = courseEnrollmentRepository;
             _mapper = mapper;
         }
 
@@ -89,6 +95,23 @@ namespace MeridianEmployeeHub.Services.Employees
 
             await _leaveBalanceRepository.AddRangeAsync(defaultBalances);
             await _leaveBalanceRepository.SaveChangesAsync();
+
+            // ── Auto-enrollment la cursuri mandatory ──────────────────────────────
+            var mandatoryCourses = await _trainingCourseRepository.GetMandatoryCoursesAsync();
+            if (mandatoryCourses.Any())
+            {
+                var enrollments = mandatoryCourses.Select(c => new CourseEnrollment
+                {
+                    CourseId = c.Id,
+                    EmployeeId = employeeEntity.Id,
+                    EnrolledAt = DateTime.UtcNow,
+                    ProgressPercent = 0,
+                    IsCompleted = false
+                });
+
+                await _courseEnrollmentRepository.AddRangeAsync(enrollments);
+                await _courseEnrollmentRepository.SaveChangesAsync();
+            }
 
             return _mapper.Map<EmployeeDto>(employeeEntity);
         }
