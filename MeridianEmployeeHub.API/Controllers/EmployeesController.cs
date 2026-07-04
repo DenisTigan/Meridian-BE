@@ -12,10 +12,14 @@ namespace MeridianEmployeeHub.API.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
+        private readonly IProfilePictureService _profilePictureService;
 
-        public EmployeesController(IEmployeeService employeeService)
+        public EmployeesController(
+            IEmployeeService employeeService,
+            IProfilePictureService profilePictureService)
         {
             _employeeService = employeeService;
+            _profilePictureService = profilePictureService;
         }
 
         // ── GET /api/v1/employees ─────────────────────────────────────────────
@@ -114,6 +118,39 @@ namespace MeridianEmployeeHub.API.Controllers
                 id, request.WorkStatus, currentUserId);
 
             return Ok(updated);
+        }
+
+        // ── PUT /api/v1/employees/{id}/picture ────────────────────────────────
+        // Upload sau înlocuire poză de profil.
+        // Acceptă multipart/form-data cu un câmp "file".
+        [HttpPut("{id:int}/picture")]
+        public async Task<ActionResult> UploadProfilePicture(int id, IFormFile file)
+        {
+            var currentUserId = GetCurrentEmployeeId();
+            var isHROrAdmin = IsHROrAdmin();
+
+            if (currentUserId != id && !isHROrAdmin)
+                throw new MeridianEmployeeHub.Services.Exceptions.ForbiddenException(
+                    "You are not allowed to update another employee's profile picture.");
+
+            var newUrl = await _profilePictureService.UploadProfilePictureAsync(id, file);
+            return Ok(new { ProfilePictureUrl = newUrl });
+        }
+
+        // ── DELETE /api/v1/employees/{id}/picture ─────────────────────────────
+        // Șterge poza de profil.
+        [HttpDelete("{id:int}/picture")]
+        public async Task<IActionResult> DeleteProfilePicture(int id)
+        {
+            var currentUserId = GetCurrentEmployeeId();
+            var isHROrAdmin = IsHROrAdmin();
+
+            if (currentUserId != id && !isHROrAdmin)
+                throw new MeridianEmployeeHub.Services.Exceptions.ForbiddenException(
+                    "You are not allowed to delete another employee's profile picture.");
+
+            await _profilePictureService.DeleteProfilePictureAsync(id);
+            return NoContent();
         }
 
         // ── Helper methods ────────────────────────────────────────────────────
