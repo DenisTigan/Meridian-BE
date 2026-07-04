@@ -149,7 +149,17 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
-
+// ── 8. CORS ──────────────────────────────────────────────────────────────────
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontendDev", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+    });
+});
 // ── Build ────────────────────────────────────────────────────────────────────
 var app = builder.Build();
 
@@ -165,7 +175,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 app.UseHttpsRedirection();
-
+app.UseCors("FrontendDev");
 // Ordinea obligatorie: Authentication INAINTEA Authorization
 app.UseAuthentication();
 app.UseAuthorization();

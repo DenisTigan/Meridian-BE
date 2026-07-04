@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|solutionrelative:meridianemployeehub.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.api\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|solutionrelative:meridianemployeehub.api\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ECFDA34B-910B-4597-AFB3-E2B7F713C963}|MeridianEmployeeHub.Services\\MeridianEmployeeHub.Services.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.services\\employees\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ECFDA34B-910B-4597-AFB3-E2B7F713C963}|MeridianEmployeeHub.Services\\MeridianEmployeeHub.Services.csproj|solutionrelative:meridianemployeehub.services\\employees\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.api\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|solutionrelative:meridianemployeehub.api\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ECFDA34B-910B-4597-AFB3-E2B7F713C963}|MeridianEmployeeHub.Services\\MeridianEmployeeHub.Services.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.services\\employees\\iemployeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -120,14 +120,14 @@
               "RelativeDocumentMoniker": "MeridianEmployeeHub.API\\Program.cs",
               "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.API\\Program.cs",
               "RelativeToolTip": "MeridianEmployeeHub.API\\Program.cs",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAAAC0AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKAAAAAAAAAAAAAYwLIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-29T18:07:32.508Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "EmployeesController.cs",
               "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.API\\Controllers\\EmployeesController.cs",
               "RelativeDocumentMoniker": "MeridianEmployeeHub.API\\Controllers\\EmployeesController.cs",
@@ -139,15 +139,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "EmployeeService.cs",
               "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Employees\\EmployeeService.cs",
               "RelativeDocumentMoniker": "MeridianEmployeeHub.Services\\Employees\\EmployeeService.cs",
               "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Employees\\EmployeeService.cs",
               "RelativeToolTip": "MeridianEmployeeHub.Services\\Employees\\EmployeeService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAANgAAAAAAAAAAAAQwPAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-30T20:00:09.354Z"
+              "WhenOpened": "2026-06-30T20:00:09.354Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
