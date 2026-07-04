@@ -53,6 +53,10 @@ namespace MeridianEmployeeHub.Data.Context
         public DbSet<TrainingModule> TrainingModules { get; set; }
         public DbSet<CourseEnrollment> CourseEnrollments { get; set; }
 
+        // ── Internal Wiki ──────────────────────────────────────────────────────
+        public DbSet<WikiCategory> WikiCategories { get; set; }
+        public DbSet<WikiArticle> WikiArticles { get; set; }
+
         // ── Auto-set CreatedAt / UpdatedAt la fiecare salvare ────────────────
         // CreatedBy / UpdatedBy vor fi populate în sesiunea de Auth (IHttpContextAccessor)
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -145,17 +149,32 @@ namespace MeridianEmployeeHub.Data.Context
                 }
             }
 
-            // Auto-set CreatedAt/UpdatedAt pentru TrainingCourse
-            foreach (var entry in ChangeTracker.Entries<TrainingCourse>())
+            // Auto-set CreatedAt/UpdatedAt pentru TrainingCourse și WikiArticle
+            foreach (var entry in ChangeTracker.Entries())
             {
-                if (entry.State == EntityState.Added)
+                if (entry.Entity is TrainingCourse tc)
                 {
-                    entry.Entity.CreatedAt = now;
-                    entry.Entity.UpdatedAt = now;
+                    if (entry.State == EntityState.Added)
+                    {
+                        tc.CreatedAt = now;
+                        tc.UpdatedAt = now;
+                    }
+                    else if (entry.State == EntityState.Modified)
+                    {
+                        tc.UpdatedAt = now;
+                    }
                 }
-                else if (entry.State == EntityState.Modified)
+                else if (entry.Entity is WikiArticle wa)
                 {
-                    entry.Entity.UpdatedAt = now;
+                    if (entry.State == EntityState.Added)
+                    {
+                        wa.CreatedAt = now;
+                        wa.UpdatedAt = now;
+                    }
+                    else if (entry.State == EntityState.Modified)
+                    {
+                        wa.UpdatedAt = now;
+                    }
                 }
             }
 
@@ -664,6 +683,58 @@ namespace MeridianEmployeeHub.Data.Context
                 entity.HasIndex(ce => new { ce.CourseId, ce.EmployeeId })
                       .IsUnique()
                       .HasDatabaseName("IX_CourseEnrollments_CourseId_EmployeeId");
+            });
+
+            // ── WikiCategory ─────────────────────────────────────────────────────────
+            modelBuilder.Entity<WikiCategory>(entity =>
+            {
+                entity.HasKey(wc => wc.Id);
+
+                entity.Property(wc => wc.Name)
+                      .HasMaxLength(100)
+                      .IsRequired();
+
+                entity.Property(wc => wc.Slug)
+                      .HasMaxLength(120)
+                      .IsRequired();
+
+                entity.HasIndex(wc => wc.Slug)
+                      .IsUnique();
+
+                // Self-referencing FK, Restrict
+                entity.HasOne(wc => wc.ParentCategory)
+                      .WithMany(wc => wc.SubCategories)
+                      .HasForeignKey(wc => wc.ParentCategoryId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // ── WikiArticle ──────────────────────────────────────────────────────────
+            modelBuilder.Entity<WikiArticle>(entity =>
+            {
+                entity.HasKey(wa => wa.Id);
+
+                entity.Property(wa => wa.Title)
+                      .HasMaxLength(255)
+                      .IsRequired();
+
+                entity.Property(wa => wa.Slug)
+                      .HasMaxLength(280)
+                      .IsRequired();
+
+                entity.HasIndex(wa => wa.Slug)
+                      .IsUnique();
+
+                // FK NOT NULL → WikiCategory, Restrict
+                entity.HasOne(wa => wa.Category)
+                      .WithMany(wc => wc.Articles)
+                      .HasForeignKey(wa => wa.CategoryId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                // FK NOT NULL → Employees, Restrict
+                entity.HasOne(wa => wa.Author)
+                      .WithMany()
+                      .HasForeignKey(wa => wa.AuthorId)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }
