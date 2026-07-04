@@ -38,6 +38,9 @@ namespace MeridianEmployeeHub.Data.Context
         // ── Company Calendar ───────────────────────────────────────────────
         public DbSet<CalendarEvent> CalendarEvents { get; set; }
 
+        // ── HR Tickets ─────────────────────────────────────────────────────────
+        public DbSet<HRTicket> HRTickets { get; set; }
+
         // ── Auto-set CreatedAt / UpdatedAt la fiecare salvare ────────────────
         // CreatedBy / UpdatedBy vor fi populate în sesiunea de Auth (IHttpContextAccessor)
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -90,6 +93,20 @@ namespace MeridianEmployeeHub.Data.Context
                 if (entry.State == EntityState.Added)
                 {
                     entry.Entity.CreatedAt = now;
+                }
+            }
+
+            // Auto-set CreatedAt/UpdatedAt pentru HRTicket (nu moștenește BaseEntity)
+            foreach (var entry in ChangeTracker.Entries<HRTicket>())
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = now;
+                    entry.Entity.UpdatedAt = now;
+                }
+                else if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.UpdatedAt = now;
                 }
             }
 
@@ -402,6 +419,52 @@ namespace MeridianEmployeeHub.Data.Context
                 entity.HasOne(e => e.Creator)
                       .WithMany()
                       .HasForeignKey(e => e.CreatedBy)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // ── HRTicket ─────────────────────────────────────────────────────────────
+            modelBuilder.Entity<HRTicket>(entity =>
+            {
+                entity.HasKey(t => t.Id);
+
+                entity.Property(t => t.TicketNumber)
+                      .IsRequired()
+                      .HasMaxLength(20);
+
+                // UNIQUE INDEX pe TicketNumber — plasă de siguranță pentru generarea secvențială.
+                // MySQL permite un singur rând per valoare, deci o coliziune (concurență) va
+                // produce o excepție la nivel DB, nu date duplicate silențioase.
+                entity.HasIndex(t => t.TicketNumber)
+                      .IsUnique()
+                      .HasDatabaseName("IX_HRTickets_TicketNumber");
+
+                entity.Property(t => t.Subject)
+                      .IsRequired()
+                      .HasMaxLength(255);
+
+                // Conținut lung — stocat ca TEXT (MySQL)
+                entity.Property(t => t.Description)
+                      .IsRequired()
+                      .HasColumnType("TEXT");
+
+                // Enum-urile stocate ca int (implicit EF Core)
+                entity.Property(t => t.Category)
+                      .HasConversion<int>();
+
+                entity.Property(t => t.Status)
+                      .HasConversion<int>();
+
+                // FK NOT NULL → Employees (depunătorul tichetului), Restrict
+                // Istoricul tichetelor trebuie păstrat chiar dacă angajatul e dezactivat
+                entity.HasOne(t => t.Employee)
+                      .WithMany()
+                      .HasForeignKey(t => t.EmployeeId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                // FK nullable → Employees (HR/Admin asignat), Restrict
+                entity.HasOne(t => t.AssignedTo)
+                      .WithMany()
+                      .HasForeignKey(t => t.AssignedToId)
                       .OnDelete(DeleteBehavior.Restrict);
             });
         }
