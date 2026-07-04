@@ -1,0 +1,20 @@
+namespace MeridianEmployeeHub.Data.Entities
+{
+    public class Notification
+    {
+        public int Id { get; set; }
+        public int EmployeeId { get; set; }
+        public Employee? Employee { get; set; }
+
+        public string Title { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
+        public string NotificationType { get; set; } = string.Empty;
+        
+        public bool IsRead { get; set; } = false;
+
+        public int? RelatedEntityId { get; set; }
+        public string? RelatedEntityType { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+    }
+}

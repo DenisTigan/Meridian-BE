@@ -45,6 +45,9 @@ namespace MeridianEmployeeHub.Data.Context
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
         public DbSet<LeaveBalance> LeaveBalances { get; set; }
 
+        // ── Notifications ──────────────────────────────────────────────────────
+        public DbSet<Notification> Notifications { get; set; }
+
         // ── Auto-set CreatedAt / UpdatedAt la fiecare salvare ────────────────
         // CreatedBy / UpdatedBy vor fi populate în sesiunea de Auth (IHttpContextAccessor)
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -125,6 +128,15 @@ namespace MeridianEmployeeHub.Data.Context
                 else if (entry.State == EntityState.Modified)
                 {
                     entry.Entity.UpdatedAt = now;
+                }
+            }
+
+            // Auto-set CreatedAt pentru Notification (nu moștenește BaseEntity)
+            foreach (var entry in ChangeTracker.Entries<Notification>())
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = now;
                 }
             }
 
@@ -543,6 +555,29 @@ namespace MeridianEmployeeHub.Data.Context
                 entity.HasIndex(lb => new { lb.EmployeeId, lb.Year, lb.LeaveType })
                       .IsUnique()
                       .HasDatabaseName("IX_LeaveBalances_EmployeeId_Year_LeaveType");
+            });
+
+            // ── Notification ─────────────────────────────────────────────────────────
+            modelBuilder.Entity<Notification>(entity =>
+            {
+                entity.HasKey(n => n.Id);
+
+                entity.Property(n => n.Title)
+                      .HasMaxLength(255)
+                      .IsRequired();
+
+                entity.Property(n => n.NotificationType)
+                      .HasMaxLength(80)
+                      .IsRequired();
+
+                entity.Property(n => n.RelatedEntityType)
+                      .HasMaxLength(80);
+
+                // FK NOT NULL → Employees, Restrict (protecție soft-delete)
+                entity.HasOne(n => n.Employee)
+                      .WithMany()
+                      .HasForeignKey(n => n.EmployeeId)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
         }
     }

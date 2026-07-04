@@ -2,6 +2,7 @@ using MeridianEmployeeHub.Data.Entities;
 using MeridianEmployeeHub.Data.Repositories.Interfaces;
 using MeridianEmployeeHub.Services.Exceptions;
 using MeridianEmployeeHub.Services.HRTickets.DTOs;
+using MeridianEmployeeHub.Services.Notifications;
 
 namespace MeridianEmployeeHub.Services.HRTickets
 {
@@ -9,13 +10,16 @@ namespace MeridianEmployeeHub.Services.HRTickets
     {
         private readonly IHRTicketRepository _ticketRepository;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly INotificationService _notificationService;
 
         public HRTicketService(
             IHRTicketRepository ticketRepository,
-            IEmployeeRepository employeeRepository)
+            IEmployeeRepository employeeRepository,
+            INotificationService notificationService)
         {
             _ticketRepository = ticketRepository;
             _employeeRepository = employeeRepository;
+            _notificationService = notificationService;
         }
 
         // ── GET toate — comportament dual ─────────────────────────────────────
@@ -114,6 +118,16 @@ namespace MeridianEmployeeHub.Services.HRTickets
 
             await _ticketRepository.UpdateAsync(ticket);
             await _ticketRepository.SaveChangesAsync();
+
+            // Send notification to the submitter
+            await _notificationService.CreateNotificationAsync(
+                ticket.EmployeeId,
+                "Ticket Status Updated",
+                $"Your ticket {ticket.TicketNumber} status changed to {request.Status}.",
+                "TicketUpdated",
+                ticket.Id,
+                "HRTicket"
+            );
 
             return ToDto(ticket);
         }

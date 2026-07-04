@@ -2,6 +2,7 @@ using MeridianEmployeeHub.Data.Entities;
 using MeridianEmployeeHub.Data.Repositories.Interfaces;
 using MeridianEmployeeHub.Services.Exceptions;
 using MeridianEmployeeHub.Services.LeaveRequests.DTOs;
+using MeridianEmployeeHub.Services.Notifications;
 
 namespace MeridianEmployeeHub.Services.LeaveRequests
 {
@@ -10,15 +11,18 @@ namespace MeridianEmployeeHub.Services.LeaveRequests
         private readonly ILeaveRequestRepository _requestRepository;
         private readonly ILeaveBalanceRepository _balanceRepository;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly INotificationService _notificationService;
 
         public LeaveRequestService(
             ILeaveRequestRepository requestRepository,
             ILeaveBalanceRepository balanceRepository,
-            IEmployeeRepository employeeRepository)
+            IEmployeeRepository employeeRepository,
+            INotificationService notificationService)
         {
             _requestRepository = requestRepository;
             _balanceRepository = balanceRepository;
             _employeeRepository = employeeRepository;
+            _notificationService = notificationService;
         }
 
         public async Task<IEnumerable<LeaveRequestDto>> GetRequestsAsync(int currentUserId, bool isHROrAdmin, bool isManager)
@@ -137,6 +141,31 @@ namespace MeridianEmployeeHub.Services.LeaveRequests
 
             await _requestRepository.UpdateAsync(request);
             await _requestRepository.SaveChangesAsync();
+
+            // Send notification
+            if (reviewDto.Status == LeaveRequestStatus.Approved)
+            {
+                await _notificationService.CreateNotificationAsync(
+                    request.EmployeeId,
+                    "Leave Request Approved",
+                    $"Your {request.LeaveType} leave request from {request.StartDate} to {request.EndDate} has been approved.",
+                    "LeaveApproved",
+                    request.Id,
+                    "LeaveRequest"
+                );
+            }
+            else if (reviewDto.Status == LeaveRequestStatus.Rejected)
+            {
+                string commentPart = string.IsNullOrEmpty(request.ManagerComment) ? "" : $" Reason: {request.ManagerComment}";
+                await _notificationService.CreateNotificationAsync(
+                    request.EmployeeId,
+                    "Leave Request Rejected",
+                    $"Your {request.LeaveType} leave request from {request.StartDate} to {request.EndDate} has been rejected.{commentPart}",
+                    "LeaveRejected",
+                    request.Id,
+                    "LeaveRequest"
+                );
+            }
 
             return MapToDto(request);
         }
