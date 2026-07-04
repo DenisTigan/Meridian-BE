@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MeridianEmployeeHub.Data")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d599b53696da07266fe3f5076815a5fa777383d3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a99bd1078265ee7f03146a8115a961cb5a3fcb45")]
 [assembly: System.Reflection.AssemblyProductAttribute("MeridianEmployeeHub.Data")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MeridianEmployeeHub.Data")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -10,6 +10,8 @@ namespace MeridianEmployeeHub.Services.Employees
             string? search, int? departmentId, int? teamId, int page, int pageSize);
         Task<EmployeeDto?> GetEmployeeByIdAsync(int id);
         Task<EmployeeDto?> GetCurrentUserProfileAsync(int currentUserId);
+        
+        Task<BadgeDto?> GetBadgeDataAsync(int employeeId, int currentUserId, bool isAdmin);
 
         // ── Creare ───────────────────────────────────────────────────────────
         Task<EmployeeDto> CreateEmployeeAsync(CreateEmployeeRequest request);

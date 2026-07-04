@@ -584,6 +584,250 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.CoursesController",
+    "Method": "GetCourses",
+    "RelativePath": "api/v1/courses",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "category",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "search",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[MeridianEmployeeHub.Services.Training.DTOs.TrainingCourseDto, MeridianEmployeeHub.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.CoursesController",
+    "Method": "CreateCourse",
+    "RelativePath": "api/v1/courses",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.CreateCourseRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.TrainingCourseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.CoursesController",
+    "Method": "UpdateModule",
+    "RelativePath": "api/v1/courses/{courseId}/modules/{moduleId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "moduleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.CreateModuleRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.TrainingModuleDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.CoursesController",
+    "Method": "DeleteModule",
+    "RelativePath": "api/v1/courses/{courseId}/modules/{moduleId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "courseId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "moduleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.CoursesController",
+    "Method": "GetCourseById",
+    "RelativePath": "api/v1/courses/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.TrainingCourseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.CoursesController",
+    "Method": "UpdateCourse",
+    "RelativePath": "api/v1/courses/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.UpdateCourseRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.TrainingCourseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.CoursesController",
+    "Method": "DeleteCourse",
+    "RelativePath": "api/v1/courses/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.CoursesController",
+    "Method": "GetCourseModules",
+    "RelativePath": "api/v1/courses/{id}/modules",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[MeridianEmployeeHub.Services.Training.DTOs.TrainingModuleDto, MeridianEmployeeHub.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.CoursesController",
+    "Method": "AddModule",
+    "RelativePath": "api/v1/courses/{id}/modules",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.CreateModuleRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.TrainingModuleDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "MeridianEmployeeHub.API.Controllers.DepartmentsController",
     "Method": "GetAllDepartments",
     "RelativePath": "api/v1/departments",
@@ -1000,6 +1244,32 @@
   },
   {
     "ContainingType": "MeridianEmployeeHub.API.Controllers.EmployeesController",
+    "Method": "GetBadgeData",
+    "RelativePath": "api/v1/employees/{id}/badge",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Employees.DTOs.BadgeDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.EmployeesController",
     "Method": "UploadProfilePicture",
     "RelativePath": "api/v1/employees/{id}/picture",
     "HttpMethod": "PUT",
@@ -1077,6 +1347,119 @@
     "ReturnTypes": [
       {
         "Type": "MeridianEmployeeHub.Services.Employees.DTOs.EmployeeDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.EnrollmentsController",
+    "Method": "Enroll",
+    "RelativePath": "api/v1/enrollments",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.CreateEnrollmentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.CourseEnrollmentDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.EnrollmentsController",
+    "Method": "GetAllEnrollments",
+    "RelativePath": "api/v1/enrollments",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[MeridianEmployeeHub.Services.Training.DTOs.CourseEnrollmentDto, MeridianEmployeeHub.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.EnrollmentsController",
+    "Method": "GetCertificate",
+    "RelativePath": "api/v1/enrollments/{id}/certificate",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.EnrollmentsController",
+    "Method": "UpdateProgress",
+    "RelativePath": "api/v1/enrollments/{id}/progress",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.UpdateProgressRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Training.DTOs.CourseEnrollmentDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.EnrollmentsController",
+    "Method": "GetMyEnrollments",
+    "RelativePath": "api/v1/enrollments/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[MeridianEmployeeHub.Services.Training.DTOs.CourseEnrollmentDto, MeridianEmployeeHub.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1379,6 +1762,93 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.NotificationsController",
+    "Method": "MarkAsRead",
+    "RelativePath": "api/v1/notifications/{id}/read",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Notifications.DTOs.NotificationDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.NotificationsController",
+    "Method": "GetMyNotifications",
+    "RelativePath": "api/v1/notifications/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "skip",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "take",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[MeridianEmployeeHub.Services.Notifications.DTOs.NotificationDto, MeridianEmployeeHub.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.NotificationsController",
+    "Method": "GetUnreadCount",
+    "RelativePath": "api/v1/notifications/me/unread-count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.NotificationsController",
+    "Method": "MarkAllAsRead",
+    "RelativePath": "api/v1/notifications/read-all",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "MeridianEmployeeHub.API.Controllers.OfficesController",
@@ -1830,5 +2300,269 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.WikiArticlesController",
+    "Method": "GetArticles",
+    "RelativePath": "api/v1/wiki/articles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "categoryId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=9.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "skip",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "take",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[MeridianEmployeeHub.Services.Wiki.DTOs.WikiArticleDto, MeridianEmployeeHub.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.WikiArticlesController",
+    "Method": "CreateArticle",
+    "RelativePath": "api/v1/wiki/articles",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MeridianEmployeeHub.Services.Wiki.DTOs.CreateArticleRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Wiki.DTOs.WikiArticleDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.WikiArticlesController",
+    "Method": "GetArticleBySlug",
+    "RelativePath": "api/v1/wiki/articles/{slug}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "slug",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Wiki.DTOs.WikiArticleDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.WikiArticlesController",
+    "Method": "UpdateArticle",
+    "RelativePath": "api/v1/wiki/articles/{slug}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "slug",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "MeridianEmployeeHub.Services.Wiki.DTOs.UpdateArticleRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Wiki.DTOs.WikiArticleDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.WikiArticlesController",
+    "Method": "DeleteArticle",
+    "RelativePath": "api/v1/wiki/articles/{slug}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "slug",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.WikiCategoriesController",
+    "Method": "GetCategories",
+    "RelativePath": "api/v1/wiki/categories",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[MeridianEmployeeHub.Services.Wiki.DTOs.WikiCategoryTreeDto, MeridianEmployeeHub.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.WikiCategoriesController",
+    "Method": "CreateCategory",
+    "RelativePath": "api/v1/wiki/categories",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "MeridianEmployeeHub.Services.Wiki.DTOs.CreateCategoryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Wiki.DTOs.WikiCategoryDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.WikiCategoriesController",
+    "Method": "UpdateCategory",
+    "RelativePath": "api/v1/wiki/categories/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "MeridianEmployeeHub.Services.Wiki.DTOs.UpdateCategoryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "MeridianEmployeeHub.Services.Wiki.DTOs.WikiCategoryDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.WikiCategoriesController",
+    "Method": "DeleteCategory",
+    "RelativePath": "api/v1/wiki/categories/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.WikiArticlesController",
+    "Method": "SearchArticles",
+    "RelativePath": "api/v1/wiki/search",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "q",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "skip",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "take",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[MeridianEmployeeHub.Services.Wiki.DTOs.WikiArticleDto, MeridianEmployeeHub.Services, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

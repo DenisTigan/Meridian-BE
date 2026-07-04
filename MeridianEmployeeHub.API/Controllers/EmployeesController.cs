@@ -153,6 +153,23 @@ namespace MeridianEmployeeHub.API.Controllers
             return NoContent();
         }
 
+        // ── GET /api/v1/employees/{id}/badge ───────────────────────────────────
+        // Badge virtual - Doar angajatul insusi sau Admin pot accesa.
+        [HttpGet("{id:int}/badge")]
+        public async Task<ActionResult<BadgeDto>> GetBadgeData(int id)
+        {
+            var currentUserId = GetCurrentEmployeeId();
+            var isAdmin = User.IsInRole("Admin");
+
+            var badgeData = await _employeeService.GetBadgeDataAsync(id, currentUserId, isAdmin);
+            if (badgeData == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(badgeData);
+        }
+
         // ── Helper methods ────────────────────────────────────────────────────
 
         private int GetCurrentEmployeeId()

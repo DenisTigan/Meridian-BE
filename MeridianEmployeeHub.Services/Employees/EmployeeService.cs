@@ -64,6 +64,30 @@ namespace MeridianEmployeeHub.Services.Employees
             return employee == null ? null : _mapper.Map<EmployeeDto>(employee);
         }
 
+        public async Task<BadgeDto?> GetBadgeDataAsync(int employeeId, int currentUserId, bool isAdmin)
+        {
+            var employee = await _repository.GetByIdAsync(employeeId);
+            if (employee == null)
+            {
+                return null;
+            }
+
+            if (currentUserId != employeeId && !isAdmin)
+            {
+                throw new ForbiddenException("You can only view your own badge.");
+            }
+
+            return new BadgeDto
+            {
+                EmployeeCode = employee.EmployeeCode,
+                FullName = $"{employee.FirstName} {employee.LastName}",
+                JobTitle = employee.JobTitle,
+                DepartmentName = employee.Department?.Name ?? string.Empty,
+                ProfilePictureUrl = employee.ProfilePictureUrl,
+                QrCodeData = $"MERIDIAN-EMP-{employee.EmployeeCode}-{employee.Id}"
+            };
+        }
+
         // ── Creare ───────────────────────────────────────────────────────────
 
         public async Task<EmployeeDto> CreateEmployeeAsync(CreateEmployeeRequest request)
