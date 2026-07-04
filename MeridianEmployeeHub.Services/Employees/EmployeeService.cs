@@ -11,11 +11,16 @@ namespace MeridianEmployeeHub.Services.Employees
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository _repository;
+        private readonly ILeaveBalanceRepository _leaveBalanceRepository;
         private readonly IMapper _mapper;
 
-        public EmployeeService(IEmployeeRepository repository, IMapper mapper)
+        public EmployeeService(
+            IEmployeeRepository repository,
+            ILeaveBalanceRepository leaveBalanceRepository,
+            IMapper mapper)
         {
             _repository = repository;
+            _leaveBalanceRepository = leaveBalanceRepository;
             _mapper = mapper;
         }
 
@@ -69,7 +74,21 @@ namespace MeridianEmployeeHub.Services.Employees
             employeeEntity.IsFirstLogin = true;
 
             await _repository.AddAsync(employeeEntity);
-            await _repository.SaveChangesAsync();
+            await _repository.SaveChangesAsync(); // We need to save to get the employeeEntity.Id generated
+
+            // Create default Leave Balances for the current year
+            short currentYear = (short)DateTime.UtcNow.Year;
+            var defaultBalances = new List<LeaveBalance>
+            {
+                new LeaveBalance { EmployeeId = employeeEntity.Id, Year = currentYear, LeaveType = LeaveType.Annual, AllottedDays = 21, UsedDays = 0 },
+                new LeaveBalance { EmployeeId = employeeEntity.Id, Year = currentYear, LeaveType = LeaveType.Sick, AllottedDays = 10, UsedDays = 0 },
+                new LeaveBalance { EmployeeId = employeeEntity.Id, Year = currentYear, LeaveType = LeaveType.Personal, AllottedDays = 5, UsedDays = 0 },
+                new LeaveBalance { EmployeeId = employeeEntity.Id, Year = currentYear, LeaveType = LeaveType.Maternity, AllottedDays = 90, UsedDays = 0 },
+                new LeaveBalance { EmployeeId = employeeEntity.Id, Year = currentYear, LeaveType = LeaveType.Paternity, AllottedDays = 10, UsedDays = 0 }
+            };
+
+            await _leaveBalanceRepository.AddRangeAsync(defaultBalances);
+            await _leaveBalanceRepository.SaveChangesAsync();
 
             return _mapper.Map<EmployeeDto>(employeeEntity);
         }

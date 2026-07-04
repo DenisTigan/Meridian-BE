@@ -12,6 +12,7 @@ using MeridianEmployeeHub.Services.Departments;
 using MeridianEmployeeHub.Services.Desks;
 using MeridianEmployeeHub.Services.Employees;
 using MeridianEmployeeHub.Services.HRTickets;
+using MeridianEmployeeHub.Services.LeaveRequests;
 using MeridianEmployeeHub.Services.Offices;
 using MeridianEmployeeHub.Services.Onboarding;
 using MeridianEmployeeHub.Services.Profiles;
@@ -53,6 +54,8 @@ builder.Services.AddScoped<IDeskRepository, DeskRepository>();
 builder.Services.AddScoped<IDeskBookingRepository, DeskBookingRepository>();
 builder.Services.AddScoped<ICalendarEventRepository, CalendarEventRepository>();
 builder.Services.AddScoped<IHRTicketRepository, HRTicketRepository>();
+builder.Services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
+builder.Services.AddScoped<ILeaveBalanceRepository, LeaveBalanceRepository>();
 
 // ── 4. Services ──────────────────────────────────────────────────────────────
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
@@ -70,6 +73,8 @@ builder.Services.AddScoped<IDeskService, DeskService>();
 builder.Services.AddScoped<IDeskBookingService, DeskBookingService>();
 builder.Services.AddScoped<ICalendarEventService, CalendarEventService>();
 builder.Services.AddScoped<IHRTicketService, HRTicketService>();
+builder.Services.AddScoped<ILeaveRequestService, LeaveRequestService>();
+builder.Services.AddScoped<ILeaveBalanceService, LeaveBalanceService>();
 
 // ── 5. JWT Authentication ────────────────────────────────────────────────────
 var jwtSection = builder.Configuration.GetSection("Jwt");

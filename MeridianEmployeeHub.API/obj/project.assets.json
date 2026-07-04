@@ -1560,7 +1560,10 @@
         },
         "runtime": {
           "bin/placeholder/MeridianEmployeeHub.Services.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },

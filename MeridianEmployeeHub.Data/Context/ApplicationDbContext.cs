@@ -41,6 +41,10 @@ namespace MeridianEmployeeHub.Data.Context
         // ── HR Tickets ─────────────────────────────────────────────────────────
         public DbSet<HRTicket> HRTickets { get; set; }
 
+        // ── Leave Requests & Balance ───────────────────────────────────────────
+        public DbSet<LeaveRequest> LeaveRequests { get; set; }
+        public DbSet<LeaveBalance> LeaveBalances { get; set; }
+
         // ── Auto-set CreatedAt / UpdatedAt la fiecare salvare ────────────────
         // CreatedBy / UpdatedBy vor fi populate în sesiunea de Auth (IHttpContextAccessor)
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -98,6 +102,20 @@ namespace MeridianEmployeeHub.Data.Context
 
             // Auto-set CreatedAt/UpdatedAt pentru HRTicket (nu moștenește BaseEntity)
             foreach (var entry in ChangeTracker.Entries<HRTicket>())
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = now;
+                    entry.Entity.UpdatedAt = now;
+                }
+                else if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.UpdatedAt = now;
+                }
+            }
+
+            // Auto-set CreatedAt/UpdatedAt pentru LeaveRequest (nu moștenește BaseEntity)
+            foreach (var entry in ChangeTracker.Entries<LeaveRequest>())
             {
                 if (entry.State == EntityState.Added)
                 {
@@ -466,6 +484,65 @@ namespace MeridianEmployeeHub.Data.Context
                       .WithMany()
                       .HasForeignKey(t => t.AssignedToId)
                       .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // ── LeaveRequest ────────────────────────────────────────────────────────
+            modelBuilder.Entity<LeaveRequest>(entity =>
+            {
+                entity.HasKey(lr => lr.Id);
+
+                entity.Property(lr => lr.LeaveType)
+                      .HasConversion<int>();
+
+                entity.Property(lr => lr.Status)
+                      .HasConversion<int>();
+
+                entity.Property(lr => lr.TotalDays)
+                      .HasPrecision(4, 1);
+
+                entity.Property(lr => lr.Reason)
+                      .HasMaxLength(500);
+
+                entity.Property(lr => lr.ManagerComment)
+                      .HasMaxLength(500);
+
+                // FK NOT NULL → Employees (cel care face cererea), Restrict
+                entity.HasOne(lr => lr.Employee)
+                      .WithMany()
+                      .HasForeignKey(lr => lr.EmployeeId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                // FK nullable → Employees (managerul care a aprobat/respins), Restrict
+                entity.HasOne(lr => lr.ReviewedBy)
+                      .WithMany()
+                      .HasForeignKey(lr => lr.ReviewedById)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            // ── LeaveBalance ────────────────────────────────────────────────────────
+            modelBuilder.Entity<LeaveBalance>(entity =>
+            {
+                entity.HasKey(lb => lb.Id);
+
+                entity.Property(lb => lb.LeaveType)
+                      .HasConversion<int>();
+
+                entity.Property(lb => lb.AllottedDays)
+                      .HasPrecision(5, 1);
+
+                entity.Property(lb => lb.UsedDays)
+                      .HasPrecision(5, 1);
+
+                // FK NOT NULL → Employees, Restrict (pentru protecția soft-delete-ului)
+                entity.HasOne(lb => lb.Employee)
+                      .WithMany()
+                      .HasForeignKey(lb => lb.EmployeeId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                // Constrângere UNIQUE(EmployeeId, Year, LeaveType)
+                entity.HasIndex(lb => new { lb.EmployeeId, lb.Year, lb.LeaveType })
+                      .IsUnique()
+                      .HasDatabaseName("IX_LeaveBalances_EmployeeId_Year_LeaveType");
             });
         }
     }

@@ -420,6 +420,93 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
                     b.ToTable("HRTickets");
                 });
 
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.LeaveBalance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("AllottedDays")
+                        .HasPrecision(5, 1)
+                        .HasColumnType("decimal(5,1)");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LeaveType")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("UsedDays")
+                        .HasPrecision(5, 1)
+                        .HasColumnType("decimal(5,1)");
+
+                    b.Property<short>("Year")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId", "Year", "LeaveType")
+                        .IsUnique()
+                        .HasDatabaseName("IX_LeaveBalances_EmployeeId_Year_LeaveType");
+
+                    b.ToTable("LeaveBalances");
+                });
+
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.LeaveRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("EndDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("LeaveType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ManagerComment")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<string>("Reason")
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)");
+
+                    b.Property<int?>("ReviewedById")
+                        .HasColumnType("int");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalDays")
+                        .HasPrecision(4, 1)
+                        .HasColumnType("decimal(4,1)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ReviewedById");
+
+                    b.ToTable("LeaveRequests");
+                });
+
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.Office", b =>
                 {
                     b.Property<int>("Id")
@@ -767,6 +854,35 @@ namespace MeridianEmployeeHub.Data.Context.Migrations
                     b.Navigation("AssignedTo");
 
                     b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.LeaveBalance", b =>
+                {
+                    b.HasOne("MeridianEmployeeHub.Data.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.LeaveRequest", b =>
+                {
+                    b.HasOne("MeridianEmployeeHub.Data.Entities.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MeridianEmployeeHub.Data.Entities.Employee", "ReviewedBy")
+                        .WithMany()
+                        .HasForeignKey("ReviewedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("ReviewedBy");
                 });
 
             modelBuilder.Entity("MeridianEmployeeHub.Data.Entities.OnboardingChecklist", b =>
