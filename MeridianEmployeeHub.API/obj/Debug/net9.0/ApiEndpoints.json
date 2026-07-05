@@ -2177,6 +2177,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "MeridianEmployeeHub.API.Controllers.RoleController",
+    "Method": "GetAllRoles",
+    "RelativePath": "api/v1/roles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "MeridianEmployeeHub.API.Controllers.TeamsController",
     "Method": "GetAllTeams",
     "RelativePath": "api/v1/teams",

@@ -103,6 +103,14 @@ namespace MeridianEmployeeHub.Services.Employees
             // Forteaza schimbarea parolei la primul login (securitate implicita)
             employeeEntity.IsFirstLogin = true;
 
+            // DepartmentId nu e acceptat in CreateEmployeeRequest (schema publica), dar
+            // coloana are FK NOT NULL catre departments — fara acest fix, orice creare
+            // pica cu FK_Employees_Departments_DepartmentId, pentru ca valoarea implicita
+            // e 0 (invalid, nu exista niciun departament cu acest id).
+            // Default temporar: departamentul cu Id=1 (IT). HR/Admin poate corecta
+            // ulterior prin PUT /employees/{id}.
+            employeeEntity.DepartmentId = 1;
+
             await _repository.AddAsync(employeeEntity);
             await _repository.SaveChangesAsync(); // We need to save to get the employeeEntity.Id generated
 

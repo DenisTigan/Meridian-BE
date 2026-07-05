@@ -3,16 +3,36 @@
   "WorkspaceRootPath": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|solutionrelative:meridianemployeehub.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ECFDA34B-910B-4597-AFB3-E2B7F713C963}|MeridianEmployeeHub.Services\\MeridianEmployeeHub.Services.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.services\\employees\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{ECFDA34B-910B-4597-AFB3-E2B7F713C963}|MeridianEmployeeHub.Services\\MeridianEmployeeHub.Services.csproj|solutionrelative:meridianemployeehub.services\\employees\\employeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{B611633A-6C76-4A69-90D6-ACAD3755D3B9}|MeridianEmployeeHub.Data\\MeridianEmployeeHub.Data.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.data\\context\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B611633A-6C76-4A69-90D6-ACAD3755D3B9}|MeridianEmployeeHub.Data\\MeridianEmployeeHub.Data.csproj|solutionrelative:meridianemployeehub.data\\context\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.api\\controllers\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|solutionrelative:meridianemployeehub.api\\controllers\\rolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.api\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|solutionrelative:meridianemployeehub.api\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECFDA34B-910B-4597-AFB3-E2B7F713C963}|MeridianEmployeeHub.Services\\MeridianEmployeeHub.Services.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.services\\roles\\dtos\\roledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECFDA34B-910B-4597-AFB3-E2B7F713C963}|MeridianEmployeeHub.Services\\MeridianEmployeeHub.Services.csproj|solutionrelative:meridianemployeehub.services\\roles\\dtos\\roledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECFDA34B-910B-4597-AFB3-E2B7F713C963}|MeridianEmployeeHub.Services\\MeridianEmployeeHub.Services.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.services\\roles\\roleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECFDA34B-910B-4597-AFB3-E2B7F713C963}|MeridianEmployeeHub.Services\\MeridianEmployeeHub.Services.csproj|solutionrelative:meridianemployeehub.services\\roles\\roleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ECFDA34B-910B-4597-AFB3-E2B7F713C963}|MeridianEmployeeHub.Services\\MeridianEmployeeHub.Services.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.services\\roles\\iroleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{ECFDA34B-910B-4597-AFB3-E2B7F713C963}|MeridianEmployeeHub.Services\\MeridianEmployeeHub.Services.csproj|solutionrelative:meridianemployeehub.services\\roles\\iroleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|solutionrelative:meridianemployeehub.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ECFDA34B-910B-4597-AFB3-E2B7F713C963}|MeridianEmployeeHub.Services\\MeridianEmployeeHub.Services.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.services\\employees\\iemployeeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -43,10 +63,6 @@
       "RelativeMoniker": "D:0:0:{C021C805-83BB-4376-AC7D-A07EF987C897}|MeridianEmployeeHub.API\\MeridianEmployeeHub.API.csproj|solutionrelative:meridianemployeehub.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B611633A-6C76-4A69-90D6-ACAD3755D3B9}|MeridianEmployeeHub.Data\\MeridianEmployeeHub.Data.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.data\\context\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B611633A-6C76-4A69-90D6-ACAD3755D3B9}|MeridianEmployeeHub.Data\\MeridianEmployeeHub.Data.csproj|solutionrelative:meridianemployeehub.data\\context\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B611633A-6C76-4A69-90D6-ACAD3755D3B9}|MeridianEmployeeHub.Data\\MeridianEmployeeHub.Data.csproj|c:\\users\\denis\\desktop\\meridian\\backend\\meridianemployeehub.data\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B611633A-6C76-4A69-90D6-ACAD3755D3B9}|MeridianEmployeeHub.Data\\MeridianEmployeeHub.Data.csproj|solutionrelative:meridianemployeehub.data\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -62,23 +78,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IEmployeeService.cs",
-              "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Employees\\IEmployeeService.cs",
-              "RelativeDocumentMoniker": "MeridianEmployeeHub.Services\\Employees\\IEmployeeService.cs",
-              "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Employees\\IEmployeeService.cs",
-              "RelativeToolTip": "MeridianEmployeeHub.Services\\Employees\\IEmployeeService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-30T19:59:31.829Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "EmployeeMappingProfile.cs",
               "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Profiles\\EmployeeMappingProfile.cs",
               "RelativeDocumentMoniker": "MeridianEmployeeHub.Services\\Profiles\\EmployeeMappingProfile.cs",
@@ -90,7 +94,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "CreateEmployeeRequest.cs",
               "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Employees\\DTOs\\CreateEmployeeRequest.cs",
               "RelativeDocumentMoniker": "MeridianEmployeeHub.Services\\Employees\\DTOs\\CreateEmployeeRequest.cs",
@@ -102,7 +106,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "EmployeeDto.cs",
               "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Employees\\DTOs\\EmployeeDto.cs",
               "RelativeDocumentMoniker": "MeridianEmployeeHub.Services\\Employees\\DTOs\\EmployeeDto.cs",
@@ -114,45 +118,118 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.API\\Program.cs",
               "RelativeDocumentMoniker": "MeridianEmployeeHub.API\\Program.cs",
               "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.API\\Program.cs",
               "RelativeToolTip": "MeridianEmployeeHub.API\\Program.cs",
-              "ViewState": "AgIAAKAAAAAAAAAAAAAYwLIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAKAAAAAAAAAAAAAYwKEAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-29T18:07:32.508Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "EmployeesController.cs",
-              "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.API\\Controllers\\EmployeesController.cs",
-              "RelativeDocumentMoniker": "MeridianEmployeeHub.API\\Controllers\\EmployeesController.cs",
-              "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.API\\Controllers\\EmployeesController.cs",
-              "RelativeToolTip": "MeridianEmployeeHub.API\\Controllers\\EmployeesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-30T20:45:24.82Z"
+              "WhenOpened": "2026-06-29T18:07:32.508Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Data\\Context\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "MeridianEmployeeHub.Data\\Context\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Data\\Context\\ApplicationDbContext.cs",
+              "RelativeToolTip": "MeridianEmployeeHub.Data\\Context\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAKcAAAAAAAAAAAAnwLQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-29T18:03:37.414Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "EmployeeService.cs",
               "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Employees\\EmployeeService.cs",
               "RelativeDocumentMoniker": "MeridianEmployeeHub.Services\\Employees\\EmployeeService.cs",
               "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Employees\\EmployeeService.cs",
               "RelativeToolTip": "MeridianEmployeeHub.Services\\Employees\\EmployeeService.cs",
-              "ViewState": "AgIAANgAAAAAAAAAAAAQwPAAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAOAAAAAAAAAAAAAQwPgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-30T20:00:09.354Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
+              "Title": "IEmployeeService.cs",
+              "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Employees\\IEmployeeService.cs",
+              "RelativeDocumentMoniker": "MeridianEmployeeHub.Services\\Employees\\IEmployeeService.cs",
+              "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Employees\\IEmployeeService.cs",
+              "RelativeToolTip": "MeridianEmployeeHub.Services\\Employees\\IEmployeeService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T19:59:31.829Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IRoleService.cs",
+              "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Roles\\IRoleService.cs",
+              "RelativeDocumentMoniker": "MeridianEmployeeHub.Services\\Roles\\IRoleService.cs",
+              "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Roles\\IRoleService.cs",
+              "RelativeToolTip": "MeridianEmployeeHub.Services\\Roles\\IRoleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-05T09:52:17.529Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "RoleController.cs",
+              "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.API\\Controllers\\RoleController.cs",
+              "RelativeDocumentMoniker": "MeridianEmployeeHub.API\\Controllers\\RoleController.cs",
+              "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.API\\Controllers\\RoleController.cs",
+              "RelativeToolTip": "MeridianEmployeeHub.API\\Controllers\\RoleController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAYwBkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-05T09:57:02.609Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RoleService.cs",
+              "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Roles\\RoleService.cs",
+              "RelativeDocumentMoniker": "MeridianEmployeeHub.Services\\Roles\\RoleService.cs",
+              "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Roles\\RoleService.cs",
+              "RelativeToolTip": "MeridianEmployeeHub.Services\\Roles\\RoleService.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-05T09:52:30.793Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "RoleDto.cs",
+              "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Roles\\DTOs\\RoleDto.cs",
+              "RelativeDocumentMoniker": "MeridianEmployeeHub.Services\\Roles\\DTOs\\RoleDto.cs",
+              "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Services\\Roles\\DTOs\\RoleDto.cs",
+              "RelativeToolTip": "MeridianEmployeeHub.Services\\Roles\\DTOs\\RoleDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-05T09:52:44.495Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "EmployeesController.cs",
+              "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.API\\Controllers\\EmployeesController.cs",
+              "RelativeDocumentMoniker": "MeridianEmployeeHub.API\\Controllers\\EmployeesController.cs",
+              "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.API\\Controllers\\EmployeesController.cs",
+              "RelativeToolTip": "MeridianEmployeeHub.API\\Controllers\\EmployeesController.cs",
+              "ViewState": "AgIAAKoAAAAAAAAAAAAAwMEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-30T20:45:24.82Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "EmployeeRepository.cs",
               "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Data\\Repositories\\EmployeeRepository.cs",
               "RelativeDocumentMoniker": "MeridianEmployeeHub.Data\\Repositories\\EmployeeRepository.cs",
@@ -164,7 +241,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 13,
               "Title": "IEmployeeRepository.cs",
               "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Data\\Repositories\\Interfaces\\IEmployeeRepository.cs",
               "RelativeDocumentMoniker": "MeridianEmployeeHub.Data\\Repositories\\Interfaces\\IEmployeeRepository.cs",
@@ -176,7 +253,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 14,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.API\\appsettings.json",
               "RelativeDocumentMoniker": "MeridianEmployeeHub.API\\appsettings.json",
@@ -188,19 +265,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Data\\Context\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "MeridianEmployeeHub.Data\\Context\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Data\\Context\\ApplicationDbContext.cs",
-              "RelativeToolTip": "MeridianEmployeeHub.Data\\Context\\ApplicationDbContext.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAYwBcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-29T18:03:37.414Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 15,
               "Title": "Employee.cs",
               "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Data\\Entities\\Employee.cs",
               "RelativeDocumentMoniker": "MeridianEmployeeHub.Data\\Entities\\Employee.cs",
@@ -212,7 +277,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 16,
               "Title": "BaseEntity.cs",
               "DocumentMoniker": "C:\\Users\\Denis\\Desktop\\Meridian\\backend\\MeridianEmployeeHub.Data\\Entities\\BaseEntity.cs",
               "RelativeDocumentMoniker": "MeridianEmployeeHub.Data\\Entities\\BaseEntity.cs",

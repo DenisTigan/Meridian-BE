@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MeridianEmployeeHub.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f96e2d50528414b8b378c50f4d45c2845072d492")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+183cecfcac40f71e1014dd91263670267cc1a63e")]
 [assembly: System.Reflection.AssemblyProductAttribute("MeridianEmployeeHub.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MeridianEmployeeHub.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

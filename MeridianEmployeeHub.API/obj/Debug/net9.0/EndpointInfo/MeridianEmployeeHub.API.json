@@ -3713,6 +3713,18 @@
         }
       }
     },
+    "/api/v1/roles": {
+      "get": {
+        "tags": [
+          "Role"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/teams": {
       "get": {
         "tags": [
